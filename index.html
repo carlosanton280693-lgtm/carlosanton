@@ -1,3 +1,4 @@
+HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -196,13 +197,19 @@
     display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 36px;
   }
   .profile-frame {
-    width: 170px; height: 170px; border-radius: 24px; padding: 5px;
-    background: linear-gradient(135deg, var(--accent), var(--line));
-    box-shadow: 0 12px 30px rgba(59,130,246,0.25); margin-bottom: 18px;
+    width: 180px; height: 180px; border-radius: 50%; padding: 4px;
+    background: linear-gradient(135deg, #3B82F6, #1E3A8A);
+    box-shadow: 0 10px 30px rgba(59, 130, 246, 0.35); margin: 0 auto 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .profile-frame:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(59, 130, 246, 0.5);
   }
   .profile-frame img {
-    width: 100%; height: 100%; object-fit: cover; object-position: center 20%;
-    border-radius: 19px; background: var(--panel-2); display: block;
+    width: 100%; height: 100%; object-fit: cover; object-position: center 22%;
+    border-radius: 50%; background: var(--panel-2); display: block;
+    filter: contrast(1.03) brightness(1.02);
   }
   .about-profile-center .who h3{ margin:0 0 4px; font-family: var(--display); font-size: 22px; font-weight: 700; }
   .about-profile-center .who .role{ font-size: 14px; color: var(--muted); }
@@ -428,7 +435,7 @@
 
         <div class="about-profile-center">
           <div class="profile-frame">
-            <img id="profile-img-display" src="profile.jpg" alt="Carlos Alfredo Antón Gutiérrez">
+            <img id="profile-img-display" src="WhatsApp Image 2026-07-08 at 10.24.05 AM.jpeg" alt="Carlos Alfredo Antón Gutiérrez">
           </div>
           <div class="who">
             <h3>Carlos Alfredo Antón Gutiérrez</h3>
@@ -565,35 +572,51 @@
         <p class="lede" data-en="What I bring to every HR &amp; operations engagement." data-es="Mi propuesta de valor en operaciones de RRHH y atención al cliente.">What I bring to every HR &amp; operations engagement.</p>
 
         <div class="capacidades" id="dynamic-cap-pills">
-          <span class="cap-pill"><span class="sq"></span><span data-en="U.S. &amp; Multi-country HR Operations" data-es="Operaciones de RRHH (EE.UU. y LATAM)">U.S. &amp; Multi-country HR Operations</span></span>
+          <span class="cap-pill"><span class="sq"></span><span data-en="U.S. &amp; Multi-Country HR Operations" data-es="Operaciones de RRHH (EE.UU. y Multipaís)">U.S. &amp; Multi-Country HR Operations</span></span>
           <span class="cap-pill"><span class="sq"></span><span data-en="Employee Lifecycle Management" data-es="Gestión del Ciclo de Vida del Empleado">Employee Lifecycle Management</span></span>
           <span class="cap-pill"><span class="sq"></span><span data-en="Compliance &amp; Audit Readiness" data-es="Cumplimiento Normativo y Auditorías">Compliance &amp; Audit Readiness</span></span>
           <span class="cap-pill"><span class="sq"></span><span data-en="HR Analytics &amp; Reporting" data-es="Analítica de Datos e Informes">HR Analytics &amp; Reporting</span></span>
-          <span class="cap-pill"><span class="sq"></span><span data-en="Process Improvement &amp; Automation" data-es="Optimización y Automatización">Process Improvement &amp; Automation</span></span>
-          <span class="cap-pill"><span class="sq"></span><span data-en="Customer Service &amp; Partner Alignment" data-es="Servicio al Cliente y Gestión de Stakeholders">Customer Service &amp; Partner Alignment</span></span>
+          <span class="cap-pill"><span class="sq"></span><span data-en="Process Improvement &amp; Automation" data-es="Optimización de Procesos y Automatización">Process Improvement &amp; Automation</span></span>
+          <span class="cap-pill"><span class="sq"></span><span data-en="Learning &amp; Employee Development" data-es="Capacitación y Desarrollo de Personal">Learning &amp; Employee Development</span></span>
+          <span class="cap-pill"><span class="sq"></span><span data-en="Customer Experience &amp; Partner Alignment" data-es="Atención al Cliente y Gestión de Stakeholders">Customer Experience &amp; Partner Alignment</span></span>
         </div>
 
         <div id="dynamic-tool-groups">
           <div class="tool-group">
             <div class="label" data-en="HRIS, ATS &amp; CRM Systems" data-es="Sistemas HRIS, ATS y CRM">HRIS, ATS &amp; CRM Systems</div>
             <div class="tool-row">
-              <span class="tool-chip">Oracle HR Connect</span><span class="tool-chip">Talent Hub ATS</span>
-              <span class="tool-chip">Salesforce</span><span class="tool-chip">SharePoint</span>
+              <span class="tool-chip">Oracle HR Connect</span>
+              <span class="tool-chip">Talent Hub ATS</span>
+              <span class="tool-chip">Salesforce</span>
+              <span class="tool-chip">SharePoint</span>
               <span class="tool-chip">ADP Payroll Workflows</span>
             </div>
           </div>
           <div class="tool-group">
-            <div class="label" data-en="Analytics &amp; Reporting" data-es="Analítica e Informes">Analytics &amp; Reporting</div>
+            <div class="label" data-en="Analytics, Reporting &amp; Productivity" data-es="Analítica, Informes y Productividad">Analytics, Reporting &amp; Productivity</div>
             <div class="tool-row">
-              <span class="tool-chip">Excel — Pivot Tables, VLOOKUP</span><span class="tool-chip">Power BI</span>
-              <span class="tool-chip">Tableau</span><span class="tool-chip">PowerPoint</span>
+              <span class="tool-chip">Power BI</span>
+              <span class="tool-chip">Tableau</span>
+              <span class="tool-chip">Excel (Pivot Tables &amp; VLOOKUP)</span>
+              <span class="tool-chip">PowerPoint</span>
             </div>
           </div>
           <div class="tool-group">
-            <div class="label" data-en="Compliance &amp; Automation" data-es="Cumplimiento y Automatización">Compliance &amp; Automation</div>
+            <div class="label" data-en="Compliance, Process &amp; AI Automation" data-es="Cumplimiento, Procesos y Automatización con IA">Compliance, Process &amp; AI Automation</div>
             <div class="tool-row">
-              <span class="tool-chip">Form I-9 Compliance</span><span class="tool-chip">SOX Controls</span>
-              <span class="tool-chip">Power Automate</span><span class="tool-chip">Process Mapping</span>
+              <span class="tool-chip">Form I-9 Compliance</span>
+              <span class="tool-chip">SOX Controls</span>
+              <span class="tool-chip">Power Automate</span>
+              <span class="tool-chip">Process Mapping</span>
+              <span class="tool-chip">AI Tools (ChatGPT / Claude / Gemini)</span>
+            </div>
+          </div>
+          <div class="tool-group">
+            <div class="label" data-en="Soft Skills &amp; Leadership" data-es="Habilidades Blandas y Liderazgo">Soft Skills &amp; Leadership</div>
+            <div class="tool-row">
+              <span class="tool-chip">Team Leadership &amp; Coaching</span>
+              <span class="tool-chip">Cross-Functional Collaboration</span>
+              <span class="tool-chip">Conflict Resolution</span>
             </div>
           </div>
         </div>
@@ -797,7 +820,7 @@
     });
   });
 
-  /* ---------- ADMIN / AUTH FUNCTIONS ---------- */
+  /* ---------- ADMIN / AUTH & LOCALSTORAGE FUNCTIONS ---------- */
   function openLoginModal() {
     document.getElementById('admin-user').value = '';
     document.getElementById('admin-pass').value = '';
@@ -835,6 +858,27 @@
     document.getElementById('tools-input').value = tools.join(', ');
   }
 
+  function renderCapabilities(capString) {
+    const capArray = capString.split(',').map(s => s.trim()).filter(Boolean);
+    const capContainer = document.getElementById('dynamic-cap-pills');
+    capContainer.innerHTML = capArray.map(cap => `
+      <span class="cap-pill"><span class="sq"></span><span>${cap}</span></span>
+    `).join('');
+  }
+
+  function renderTools(toolsString) {
+    const toolsArray = toolsString.split(',').map(s => s.trim()).filter(Boolean);
+    const toolContainer = document.getElementById('dynamic-tool-groups');
+    toolContainer.innerHTML = `
+      <div class="tool-group">
+        <div class="label">Updated Skills &amp; Tools</div>
+        <div class="tool-row">
+          ${toolsArray.map(tool => `<span class="tool-chip">${tool}</span>`).join('')}
+        </div>
+      </div>
+    `;
+  }
+
   function saveAdminUpdates() {
     // 1. Picture update
     const fileInput = document.getElementById('pic-file-input');
@@ -844,39 +888,41 @@
       const reader = new FileReader();
       reader.onload = function(e) {
         document.getElementById('profile-img-display').src = e.target.result;
+        localStorage.setItem('custom_profile_pic', e.target.result);
       };
       reader.readAsDataURL(fileInput.files[0]);
     } else if (urlInput !== '') {
       document.getElementById('profile-img-display').src = urlInput;
+      localStorage.setItem('custom_profile_pic', urlInput);
     }
 
     // 2. Capabilities update
     const capVal = document.getElementById('cap-input').value.trim();
     if (capVal) {
-      const capArray = capVal.split(',').map(s => s.trim()).filter(Boolean);
-      const capContainer = document.getElementById('dynamic-cap-pills');
-      capContainer.innerHTML = capArray.map(cap => `
-        <span class="cap-pill"><span class="sq"></span><span>${cap}</span></span>
-      `).join('');
+      localStorage.setItem('custom_capabilities', capVal);
+      renderCapabilities(capVal);
     }
 
     // 3. Tools update
     const toolsVal = document.getElementById('tools-input').value.trim();
     if (toolsVal) {
-      const toolsArray = toolsVal.split(',').map(s => s.trim()).filter(Boolean);
-      const toolContainer = document.getElementById('dynamic-tool-groups');
-      toolContainer.innerHTML = `
-        <div class="tool-group">
-          <div class="label">Updated Skills &amp; Tools</div>
-          <div class="tool-row">
-            ${toolsArray.map(tool => `<span class="tool-chip">${tool}</span>`).join('')}
-          </div>
-        </div>
-      `;
+      localStorage.setItem('custom_tools', toolsVal);
+      renderTools(toolsVal);
     }
 
     closeModal('update-modal');
   }
+
+  // Load saved modifications automatically when opening the page
+  document.addEventListener('DOMContentLoaded', () => {
+    const savedPic = localStorage.getItem('custom_profile_pic');
+    const savedCaps = localStorage.getItem('custom_capabilities');
+    const savedTools = localStorage.getItem('custom_tools');
+
+    if (savedPic) document.getElementById('profile-img-display').src = savedPic;
+    if (savedCaps) renderCapabilities(savedCaps);
+    if (savedTools) renderTools(savedTools);
+  });
 
   /* ---------- BACKGROUND PARTICLES ---------- */
   (function(){
