@@ -108,33 +108,15 @@
     <div id="public-view">
       <div class="card">
         <h2>Core Capabilities</h2>
-        <p><span id="view-capabilities">U.S. & Multi-Country HR Operations, Employee Lifecycle Management, Compliance & Audit Readiness, HR Analytics & Reporting, Process Improvement & Automation, Learning & Employee Development, Customer Experience & Partner Alignment</span></p>
+        <p>U.S. & Multi-Country HR Operations, Employee Lifecycle Management, Compliance & Audit Readiness, HR Analytics & Reporting, Process Improvement & Automation, Learning & Employee Development, Customer Experience & Partner Alignment</p>
       </div>
       
       <div class="card">
         <h2>Tools & Proficiencies</h2>
-        <p><span id="view-tools">Oracle HR Connect, Talent Hub ATS, Salesforce, SharePoint, ADP Payroll Workflows, Power BI, Tableau, Excel (Pivot Tables & VLOOKUP), PowerPoint, Form I-9 Compliance, SOX Controls, Power Automate, Process Mapping, AI Tools (ChatGPT / Claude / Gemini), Team Leadership & Coaching, Cross-Functional Collaboration, Conflict Resolution</span></p>
+        <p>Oracle HR Connect, Talent Hub ATS, Salesforce, SharePoint, ADP Payroll Workflows, Power BI, Tableau, Excel (Pivot Tables & VLOOKUP), PowerPoint, Form I-9 Compliance, SOX Controls, Power Automate, Process Mapping, AI Tools (ChatGPT / Claude / Gemini), Team Leadership & Coaching, Cross-Functional Collaboration, Conflict Resolution</p>
       </div>
     </div>
   </main>
 
-  <script>
-    const GIST_URL = 'https://gist.githubusercontent.com/carlosanton280693-lgtm/a071f7a1b5e57d2326c94c0a6d71b01a/raw/7f6d761092edb4afa8fb5d987bfa4a8b9cb192ac/gistfile1.txt';
-
-    async function fetchGistData() {
-      try {
-        const response = await fetch(GIST_URL + '?t=' + new Date().getTime());
-        const data = await response.json();
-
-        if (data.capabilities) document.getElementById('view-capabilities').innerText = data.capabilities;
-        if (data.tools) document.getElementById('view-tools').innerText = data.tools;
-        if (data.profilePic) document.getElementById('view-pic').src = data.profilePic;
-      } catch (error) {
-        console.warn('Using built-in fallback data due to Gist fetch error:', error);
-      }
-    }
-
-    fetchGistData();
-  </script>
 </body>
 </html>
