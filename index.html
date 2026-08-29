@@ -1,115 +1,770 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HR Professional Portfolio</title>
-  <style>
-    :root {
-      --bg-color: #0f172a;
-      --card-bg: #1e293b;
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --accent: #3b82f6;
-      --border: #334155;
-    }
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-main);
-      margin: 0;
-      padding: 0;
-      line-height: 1.6;
-      -webkit-text-size-adjust: 100%;
-    }
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      border-bottom: 1px solid var(--border);
-      background: var(--card-bg);
-    }
-    h1 { margin: 0; font-size: 1.25rem; }
-    main {
-      max-width: 800px;
-      margin: 2rem auto;
-      padding: 0 1.5rem;
-      box-sizing: border-box;
-      width: 100%;
-    }
-    .profile-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 2rem;
-      margin-bottom: 1.5rem;
-      box-sizing: border-box;
-      display: flex;
-      gap: 2rem;
-      align-items: center;
-    }
-    .profile-img-container {
-      flex-shrink: 0;
-    }
-    .profile-img {
-      width: 130px;
-      height: 130px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid var(--accent);
-    }
-    .profile-info h2 {
-      margin-top: 0;
-      color: var(--text-main);
-      font-size: 1.5rem;
-    }
-    .profile-info p {
-      margin: 0.3rem 0;
-      color: var(--text-muted);
-    }
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 2rem;
-      margin-bottom: 1.5rem;
-      box-sizing: border-box;
-      word-wrap: break-word;
-    }
-    .card h2 { margin-top: 0; color: var(--accent); font-size: 1.2rem; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+<title>Carlos Antón Gutiérrez — HR Operations & Compliance</title>
+<meta name="description" content="Carlos Alfredo Antón Gutiérrez — Human Resources Generalist, U.S. HR Operations, HRIS & Compliance.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #080B11;
+    --bg-2: #0D111A;
+    --panel: #111723;
+    --panel-2: #161E2E;
+    --line: #1E293B;
+    --line-soft: #162032;
+    --text: #F1F5F9;
+    --muted: #94A3B8;
+    --muted-2: #64748B;
+    --accent: #3B82F6;
+    --accent-dim: #13233D;
+    --accent-text: #0B132B;
+
+    --display: 'Space Grotesk', 'Inter', sans-serif;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+
+  *{ box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body{
+    margin:0; background: var(--bg); color: var(--text);
+    font-family: var(--sans); line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+  }
+  ::selection{ background: var(--accent); color: var(--accent-text); }
+  a{ color: inherit; text-decoration: none; }
+  .wrap{ max-width: 980px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 1; width: 100%; }
+
+  @media(min-width: 768px){
+    .wrap{ padding: 0 28px; }
+  }
+
+  /* ---------- SPLASH / LANGUAGE SELECTOR OVERLAY ---------- */
+  #splash-screen {
+    position: fixed; inset: 0; z-index: 999;
+    background: var(--bg);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 20px; text-align: center;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+  }
+  #splash-screen.hidden {
+    opacity: 0; visibility: hidden; pointer-events: none;
+  }
+  .splash-card {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: 24px; padding: 32px 24px; max-width: 480px; width: 100%;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  }
+  .splash-logos {
+    display: flex; justify-content: center; align-items: center; gap: 20px; margin-bottom: 20px;
+  }
+  .splash-icon {
+    width: 48px; height: 48px; border-radius: 14px; background: var(--accent-dim);
+    border: 1px solid var(--line); display: flex; align-items: center; justify-content: center;
+    color: var(--accent);
+  }
+  .splash-icon svg { width: 24px; height: 24px; fill: currentColor; }
+  .splash-title {
+    font-family: var(--display); font-size: 22px; font-weight: 700; margin: 0 0 6px;
+  }
+  .splash-sub {
+    color: var(--muted); font-size: 13.5px; margin-bottom: 24px;
+  }
+  .lang-btn-group {
+    display: flex; gap: 12px; justify-content: center; flex-direction: column;
+  }
+  @media(min-width: 480px){
+    .lang-btn-group { flex-direction: row; }
+  }
+  .lang-btn {
+    font-family: var(--sans); font-weight: 600; font-size: 15px;
+    padding: 14px 24px; border-radius: 999px; cursor: pointer;
+    transition: all 0.2s ease; border: 1px solid transparent; width: 100%;
+  }
+  .lang-btn.primary { background: var(--accent); color: var(--accent-text); }
+  .lang-btn.primary:active { transform: scale(0.98); }
+
+  /* ---------- NAV BAR (PINNED TOP) ---------- */
+  header.topbar{
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(8,11,17,.9); backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .topbar-inner{
+    max-width: 980px; margin: 0 auto; padding: 10px 20px;
+    display:flex; align-items:center; justify-content: space-between; gap: 12px;
+  }
+  @media(min-width: 768px){
+    .topbar-inner { padding: 12px 28px; }
+  }
+  .brand{ display:flex; align-items:center; gap:8px; cursor: pointer; flex-shrink: 0; }
+  .brand .mark{
+    width: 24px; height: 24px; border-radius: 50%; background: var(--accent);
+    box-shadow: 0 0 16px rgba(59,130,246,.5);
+  }
+  .brand .txt{ font-family: var(--display); font-weight: 600; font-size: 14px; color: var(--text); }
+  
+  nav.links{ 
+    display:flex; gap: 2px; background: rgba(17, 23, 35, 0.6); 
+    padding: 3px; border-radius: 999px; border: 1px solid var(--line-soft); 
+  }
+  
+  nav.links a{
+    position: relative;
+    font-family: var(--sans); font-weight: 500; font-size: 12px;
+    color: var(--muted); padding: 5px 12px; border-radius: 999px; transition: all .2s ease;
+    cursor: pointer; display: inline-flex; align-items: center; justify-content: center;
+  }
+  nav.links a:hover, nav.links a.active{ color: var(--text); background: var(--panel-2); }
+
+  .nav-right { display: flex; align-items: center; gap: 8px; }
+
+  /* TOGGLE SWITCH IN TOPBAR */
+  .lang-toggle {
+    display: flex; background: var(--panel); border: 1px solid var(--line);
+    border-radius: 999px; padding: 2px; font-family: var(--mono); font-size: 10px;
+  }
+  .lang-toggle button {
+    background: none; border: none; color: var(--muted); padding: 4px 8px;
+    border-radius: 999px; cursor: pointer; transition: all 0.2s ease; font-weight: 600;
+  }
+  .lang-toggle button.active {
+    background: var(--accent); color: var(--accent-text);
+  }
+
+  .cta-nav{
+    position: relative; font-family: var(--sans); font-weight: 600; font-size: 12px;
+    background: var(--accent); color: var(--accent-text); padding: 7px 12px; border-radius: 999px;
+    transition: transform .15s ease, box-shadow .15s ease; white-space: nowrap; cursor: pointer;
+  }
+  
+  .admin-btn {
+    font-family: var(--mono); font-size: 11px; background: var(--panel-2);
+    border: 1px solid var(--line); color: var(--muted); padding: 6px 10px;
+    border-radius: 999px; cursor: pointer; transition: all 0.2s ease;
+  }
+  .admin-btn:hover { border-color: var(--accent); color: var(--text); }
+
+  @media (max-width: 860px){ nav.links{ display:none; } }
+
+  /* ---------- SPA TAB PANES ---------- */
+  main{ flex: 1; padding-top: 64px; }
+  .tab-pane{
+    display: none; opacity: 0; transform: translateY(8px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+  .tab-pane.active{ display: block; opacity: 1; transform: translateY(0); }
+
+  /* ---------- HERO (INICIO) ---------- */
+  .hero{ position: relative; padding: 60px 0 50px; overflow: hidden; }
+  @media(min-width: 768px){ .hero { padding: 90px 0 70px; } }
+  #particles{ position:absolute; inset:0; z-index:0; opacity:.55; pointer-events: none; }
+
+  .status-pill{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family: var(--mono); font-size: 11.5px; font-weight: 500; letter-spacing:.03em;
+    color: var(--muted); background: var(--panel); border: 1px solid var(--line);
+    border-radius: 999px; padding: 6px 14px; margin-bottom: 24px;
+  }
+  .status-pill .dot{ width:6px; height:6px; border-radius:50%; background: var(--accent); animation: blink 1.8s ease-in-out infinite; }
+  @keyframes blink{ 0%,100%{ opacity:1;} 50%{ opacity:.3;} }
+
+  h1.hero-title{
+    font-family: var(--display); font-weight: 700; letter-spacing: -0.02em;
+    font-size: clamp(32px, 6.4vw, 64px); line-height: 1.1; margin: 0 0 20px; max-width: 16ch;
+  }
+  h1.hero-title .accent{ color: var(--accent); }
+
+  .hero-sub{ max-width: 56ch; font-size: 15.5px; color: var(--muted); margin-bottom: 30px; }
+  .hero-sub strong{ color: var(--text); font-weight: 600; }
+
+  .btn-row{ display:flex; gap: 12px; flex-wrap: wrap; }
+  .btn{
+    font-family: var(--sans); font-weight: 600; font-size: 14px;
+    padding: 12px 22px; border-radius: 999px; transition: all .15s ease; border: 1px solid transparent;
+    cursor: pointer; text-align: center;
+  }
+  .btn.primary{ background: var(--accent); color: var(--accent-text); }
+  .btn.ghost{ background: var(--panel); color: var(--text); border-color: var(--line); }
+
+  /* ---------- SECTIONS CONTENT ---------- */
+  .sec{ padding: 40px 0 60px; }
+  @media(min-width: 768px){ .sec { padding: 50px 0 80px; } }
+  .eyebrow{ font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing:.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .sec h2{ font-family: var(--display); font-weight: 600; font-size: clamp(24px, 4vw, 38px); margin: 0 0 10px; letter-spacing: -0.01em; }
+  .sec .lede{ color: var(--muted); font-size: 14.5px; margin: 0 0 28px; max-width: 60ch; }
+
+  /* ---------- ABOUT & ENHANCED PHOTO FRAME ---------- */
+  .about-profile-center {
+    display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 30px;
+  }
+  .profile-frame {
+    width: 150px; height: 150px; border-radius: 50%; padding: 4px;
+    background: linear-gradient(135deg, #3B82F6, #1E3A8A);
+    box-shadow: 0 10px 25px rgba(59, 130, 246, 0.35); margin: 0 auto 16px;
+  }
+  @media(min-width: 768px){
+    .profile-frame { width: 180px; height: 180px; }
+  }
+  .profile-frame img {
+    width: 100%; height: 100%; object-fit: cover; object-position: center 22%;
+    border-radius: 50%; background: var(--panel-2); display: block;
+  }
+  .about-profile-center .who h3{ margin:0 0 4px; font-family: var(--display); font-size: 20px; font-weight: 700; }
+  .about-profile-center .who .role{ font-size: 13.5px; color: var(--muted); }
+
+  .stat-cards{ display:grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 24px; }
+  @media (min-width: 640px){ .stat-cards{ grid-template-columns: repeat(4, 1fr); gap: 12px; } }
+  .stat-card{ background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px 12px; text-align:center; }
+  .stat-card .num{ font-family: var(--display); font-weight: 700; font-size: 22px; color: var(--accent); }
+  .stat-card .lbl{ font-size: 10.5px; letter-spacing:.03em; color: var(--muted); margin-top: 4px; text-transform: uppercase; }
+
+  .bio p{ font-size: 14.5px; color: var(--muted); max-width: 68ch; margin: 0 auto 14px; text-align: left; }
+  .bio strong{ color: var(--text); }
+
+  .phil-panel{
+    margin-top: 28px; border-radius: 16px; padding: 24px 20px;
+    background: linear-gradient(135deg, var(--accent-dim), #0a111e 70%);
+    border: 1px solid var(--line); text-align: left;
+  }
+  @media(min-width: 768px){ .phil-panel { padding: 32px 34px; } }
+  .phil-panel h3{ font-family: var(--display); font-weight: 600; font-size: clamp(18px, 3vw, 24px); margin: 0 0 8px; }
+  .phil-panel p{ margin:0; color: var(--muted); max-width: 60ch; font-size: 14px; }
+
+  /* ---------- EXPERIENCE TIMELINE ---------- */
+  .timeline{ position: relative; padding-left: 24px; }
+  @media(min-width: 768px){ .timeline { padding-left: 30px; } }
+  .timeline::before{ content:''; position:absolute; left: 4px; top: 8px; bottom: 8px; width: 2px; background: var(--line); }
+  .t-item{ position: relative; margin-bottom: 28px; }
+  .t-item:last-child{ margin-bottom: 0; }
+  .t-item::before{
+    content:''; position:absolute; left: -24px; top: 4px; width: 10px; height: 10px; border-radius:50%;
+    background: var(--bg); border: 2px solid var(--accent); box-shadow: 0 0 0 3px var(--bg);
+  }
+  @media(min-width: 768px){
+    .t-item::before { left: -30px; width: 12px; height: 12px; }
+  }
+  .t-item.dim::before{ border-color: var(--muted-2); }
+  .t-card{ background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 18px 16px; }
+  @media(min-width: 768px){ .t-card { padding: 22px 24px; } }
+  .t-head{ display:flex; flex-wrap:wrap; justify-content: space-between; align-items:flex-start; gap: 8px; margin-bottom: 4px; }
+  .t-title h3{ margin:0; font-family: var(--display); font-weight: 600; font-size: 17px; }
+  .t-title .org{ font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+  .t-date{ font-family: var(--mono); font-size: 11px; color: var(--muted); background: var(--panel-2); border: 1px solid var(--line); border-radius: 999px; padding: 4px 10px; white-space: nowrap; }
+  .t-scope{ font-family: var(--mono); font-size: 11px; color: var(--accent); margin: 6px 0 10px; }
+  .t-brief{ font-size: 13.5px; color: var(--muted); margin: 0 0 12px; }
+
+  ul.tags{ list-style:none; display:flex; flex-wrap:wrap; gap: 6px; margin: 0 0 6px; padding:0; }
+  ul.tags li{
+    font-size: 11.5px; color: var(--text); background: var(--accent-dim); border: 1px solid var(--line);
+    border-radius: 999px; padding: 5px 10px;
+  }
+
+  ul.log{ list-style:none; margin: 4px 0 0; padding: 0; display:grid; gap: 8px; }
+  ul.log li{ position: relative; padding-left: 18px; font-size: 13px; color: var(--muted); line-height:1.5; }
+  ul.log li::before{ content:'✓'; position:absolute; left:0; top:0; color: var(--accent); font-weight:700; font-size: 11px; }
+  ul.log li strong{ color: var(--text); font-weight: 600; }
+
+  .addl{ display:grid; gap: 12px; grid-template-columns: 1fr; margin-top: 24px; }
+  @media (min-width: 640px){ .addl{ grid-template-columns: 1fr 1fr; } }
+  .addl-item{ border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; background: var(--panel); }
+  .addl-item h4{ margin: 0 0 3px; font-family: var(--display); font-weight: 600; font-size: 14px; }
+  .addl-item .org{ font-family: var(--mono); font-size: 10.5px; color: var(--muted-2); margin-bottom: 4px; }
+  .addl-item p{ margin:0; font-size: 12.5px; color: var(--muted); }
+
+  /* ---------- SKILLS ---------- */
+  .capacidades{ display:flex; flex-wrap: wrap; gap: 8px; margin-bottom: 30px; }
+  .cap-pill{
+    display:inline-flex; align-items:center; gap:6px;
+    font-size: 13px; font-weight: 500; color: var(--text);
+    background: var(--panel); border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px;
+  }
+  .cap-pill .sq{ width:5px; height:5px; border-radius: 2px; background: var(--accent); }
+
+  .tool-group{ margin-bottom: 18px; }
+  .tool-group .label{
+    font-family: var(--mono); font-size: 10.5px; font-weight: 600; letter-spacing:.08em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 8px;
+  }
+  .tool-row{ display:flex; flex-wrap: wrap; gap: 6px; }
+  .tool-chip{ font-size: 12px; color: var(--muted); background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; }
+
+  /* ---------- BACKGROUND / EDUCATION ---------- */
+  .two-col{ display:grid; gap: 16px; grid-template-columns: 1fr; }
+  @media (min-width: 640px){ .two-col{ grid-template-columns: 1.3fr 1fr; } }
+  .card{ background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; }
+  .card .label{ font-family: var(--mono); font-size: 10.5px; letter-spacing:.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+  .edu-item{ margin-bottom: 14px; }
+  .edu-item:last-child{ margin-bottom: 0; }
+  .edu-item .deg{ font-weight: 600; font-size: 14px; color: var(--text); }
+  .edu-item .inst{ font-size: 12.5px; color: var(--muted); }
+  .lang-row{ display:flex; justify-content: space-between; align-items:center; margin-bottom: 12px; font-size: 13px; }
+  .lang-row:last-child{ margin-bottom:0; }
+  .lang-bar{ width: 80px; height: 6px; background: var(--line); border-radius: 3px; overflow:hidden; }
+  .lang-bar i{ display:block; height:100%; background: var(--accent); }
+
+  /* ---------- CONTACT ---------- */
+  .onb-panel{ background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 22px 20px; margin-bottom: 20px; }
+  @media(min-width: 768px){ .onb-panel { padding: 30px 32px; } }
+  .onb-panel .label{ font-family: var(--mono); font-size: 10.5px; letter-spacing:.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+  ul.checklist{ list-style:none; margin: 0 0 20px; padding:0; display:grid; gap: 10px; }
+  ul.checklist li{ display:flex; align-items:center; gap: 10px; font-size: 13.5px; color: var(--text); }
+  ul.checklist li .ck{
+    width: 18px; height: 18px; border-radius: 50%; background: var(--accent-dim); color: var(--accent);
+    display:flex; align-items:center; justify-content:center; font-size: 10px; font-weight:700; flex: 0 0 auto;
+  }
+
+  .progress-track{ position: relative; height: 4px; background: var(--line); border-radius: 999px; margin: 24px 2px 12px; }
+  .progress-fill{ position:absolute; left:0; top:0; height:100%; width: 100%; background: var(--accent); border-radius: 999px; }
+  .progress-knob{
+    position:absolute; right: -3px; top: 50%; transform: translateY(-50%);
+    width: 22px; height: 22px; border-radius: 50%; background: var(--accent); color: var(--accent-text);
+    display:flex; align-items:center; justify-content:center; font-size: 11px; box-shadow: 0 0 0 4px var(--bg);
+  }
+  .progress-labels{ display:flex; justify-content: space-between; font-family: var(--mono); font-size: 9.5px; letter-spacing:.03em; color: var(--muted-2); text-transform: uppercase; }
+  .progress-labels .on{ color: var(--accent); font-weight: 600; }
+
+  .contact-cards{ display:grid; grid-template-columns: 1fr; gap: 10px; }
+  @media (min-width: 520px){ .contact-cards{ grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 820px){ .contact-cards{ grid-template-columns: repeat(4, 1fr); } }
+  .c-card{ background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; display:flex; align-items:center; gap: 12px; }
+  .c-card .ico{ width: 32px; height: 32px; border-radius: 99px; background: var(--accent-dim); color: var(--accent); display:flex; align-items:center; justify-content:center; flex: 0 0 auto; font-weight: 700; font-size: 13px; }
+  .c-card .lbl{ font-family: var(--mono); font-size: 10px; letter-spacing:.05em; text-transform: uppercase; color: var(--muted-2); }
+  .c-card .val{ font-size: 13px; font-weight: 600; color: var(--text); word-break: break-word; }
+
+  /* ---------- MODAL ---------- */
+  .modal-overlay {
+    position: fixed; inset:0; z-index: 1000; background: rgba(8,11,17,0.85);
+    backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center;
+    opacity: 0; visibility: hidden; transition: all 0.3s ease; padding: 16px;
+  }
+  .modal-overlay.active { opacity: 1; visibility: visible; }
+  .modal-card {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 18px;
+    padding: 24px; max-width: 480px; width: 100%; box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    max-height: 90vh; overflow-y: auto;
+  }
+  .modal-card h3 { font-family: var(--display); margin: 0 0 4px; font-size: 18px; }
+  .modal-card p { font-size: 12.5px; color: var(--muted); margin: 0 0 16px; }
+  .form-group { margin-bottom: 14px; text-align: left; }
+  .form-group label { display: block; font-family: var(--mono); font-size: 10.5px; color: var(--muted); margin-bottom: 5px; text-transform: uppercase; }
+  .form-control {
+    width: 100%; background: var(--panel-2); border: 1px solid var(--line);
+    color: var(--text); border-radius: 8px; padding: 10px 12px; font-family: var(--sans); font-size: 14px;
+  }
+  .form-control:focus { border-color: var(--accent); outline: none; }
+  .modal-btns { display: flex; gap: 8px; justify-content: flex-end; margin-top: 20px; }
+
+  footer{ padding: 30px 0; text-align:center; margin-top: auto; border-top: 1px solid var(--line-soft); }
+  footer .foot-note{ font-family: var(--mono); font-size: 10.5px; color: var(--muted-2); }
+  footer a { color: var(--accent); text-decoration: underline; }
+</style>
 </head>
 <body>
 
-  <header>
-    <h1>HR Portfolio</h1>
-  </header>
-
-  <main>
-    <div class="profile-card">
-      <div class="profile-img-container">
-        <img id="view-pic" src="WhatsApp Image 2026-07-08 at 10.24.05 AM.jpeg" alt="Profile Picture" class="profile-img" onerror="this.style.display='none'">
+<div id="splash-screen">
+  <div class="splash-card">
+    <div class="splash-logos">
+      <div class="splash-icon">
+        <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
       </div>
-      <div class="profile-info">
-        <h2>Carlos Antón</h2>
-        <p>Human Resources Supervisor & Talent Development Professional</p>
-        <p style="font-size: 0.9rem; color: #94a3b8;">Panama City, Panama</p>
+      <div class="splash-icon">
+        <svg viewBox="0 0 24 24"><path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57-.35-.11-.74-.03-1.02.24l-2.2 2.2c-2.83-1.44-5.15-3.75-6.59-6.59l2.2-2.21c.28-.26.36-.65.25-1C8.7 6.45 8.5 5.25 8.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1zM12 3v10l3-3h4c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1h-7z"/></svg>
       </div>
     </div>
-
-    <div id="public-view">
-      <div class="card">
-        <h2>Core Capabilities</h2>
-        <p>U.S. & Multi-Country HR Operations, Employee Lifecycle Management, Compliance & Audit Readiness, HR Analytics & Reporting, Process Improvement & Automation, Learning & Employee Development, Customer Experience & Partner Alignment</p>
-      </div>
-      
-      <div class="card">
-        <h2>Tools & Proficiencies</h2>
-        <p>Oracle HR Connect, Talent Hub ATS, Salesforce, SharePoint, ADP Payroll Workflows, Power BI, Tableau, Excel (Pivot Tables & VLOOKUP), PowerPoint, Form I-9 Compliance, SOX Controls, Power Automate, Process Mapping, AI Tools (ChatGPT / Claude / Gemini), Team Leadership & Coaching, Cross-Functional Collaboration, Conflict Resolution</p>
-      </div>
+    <h2 class="splash-title">Carlos Antón Gutiérrez</h2>
+    <p class="splash-sub">HR Operations, Customer Experience &amp; Compliance</p>
+    <div class="lang-btn-group">
+      <button class="lang-btn primary" onclick="selectLanguage('en')">English</button>
+      <button class="lang-btn primary" onclick="selectLanguage('es')">Español</button>
     </div>
-  </main>
+  </div>
+</div>
 
+<header class="topbar">
+  <div class="topbar-inner">
+    <a data-tab="inicio" class="brand tab-link"><span class="mark"></span><span class="txt">Carlos Antón</span></a>
+    <nav class="links" id="navlinks">
+      <a data-tab="inicio" class="tab-link active" data-en="Home" data-es="Inicio">Home</a>
+      <a data-tab="about" class="tab-link" data-en="About Me" data-es="Sobre mí">About Me</a>
+      <a data-tab="experience" class="tab-link" data-en="Experience" data-es="Experiencia">Experience</a>
+      <a data-tab="skills" class="tab-link" data-en="Skills" data-es="Habilidades">Skills</a>
+      <a data-tab="education" class="tab-link" data-en="Background" data-es="Formación">Background</a>
+    </nav>
+    <div class="nav-right">
+      <button class="admin-btn" onclick="openLoginModal()">⚙ Edit</button>
+      <div class="lang-toggle">
+        <button id="btn-en" onclick="setLanguage('en')" class="active">EN</button>
+        <button id="btn-es" onclick="setLanguage('es')">ES</button>
+      </div>
+      <a data-tab="contact" class="cta-nav tab-link" data-en="Let's Talk" data-es="Hablemos">Let's Talk</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="tab-pane active" id="inicio">
+    <section class="hero">
+      <canvas id="particles"></canvas>
+      <div class="wrap">
+        <span class="status-pill"><span class="dot"></span><span data-en="Open to remote HR &amp; Operations roles" data-es="Disponible para roles remotos de RRHH y Operaciones">Open to remote HR &amp; Operations roles</span></span>
+        <h1 class="hero-title" data-en="HR operations that run <span class='accent'>cleanly</span>, at scale." data-es="Operaciones de RRHH que funcionan con <span class='accent'>precisión</span> a escala.">HR operations that run <span class="accent">cleanly</span>, at scale.</h1>
+        <p class="hero-sub" data-en="<strong>8 years</strong> at Estée Lauder Companies (OneSource) — from Junior QA Analyst to <strong>HR Services Supervisor</strong>. I turn multi-country employee-lifecycle chaos into systems, dashboards, and compliance that hold up under audit." data-es="<strong>8 años</strong> en Estée Lauder Companies (OneSource) — de Analista QA Junior a <strong>Supervisor de Servicios de RRHH</strong>. Transformo la complejidad del ciclo de vida laboral en sistemas, tableros de control y cumplimiento operativo listos para auditorías.">
+          <strong>8 years</strong> at Estée Lauder Companies (OneSource) — from Junior QA Analyst to
+          <strong>HR Services Supervisor</strong>. I turn multi-country employee-lifecycle chaos into
+          systems, dashboards, and compliance that hold up under audit.
+        </p>
+        <div class="btn-row">
+          <a class="btn primary tab-link" data-tab="experience" data-en="See experience" data-es="Ver experiencia">See experience</a>
+          <a class="btn ghost tab-link" data-tab="contact" data-en="Contact" data-es="Contacto">Contact</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="tab-pane" id="about">
+    <section class="sec">
+      <div class="wrap">
+        <div class="eyebrow" data-en="About" data-es="Sobre mí">About</div>
+        <h2 style="text-align: center; margin-bottom: 24px;" data-en="The person behind the dashboards" data-es="La persona detrás de los procesos">The person behind the dashboards</h2>
+
+        <div class="about-profile-center">
+          <div class="profile-frame">
+            <img id="profile-img-display" src="WhatsApp Image 2026-07-08 at 10.24.05 AM.jpeg" alt="Carlos Alfredo Antón Gutiérrez">
+          </div>
+          <div class="who">
+            <h3>Carlos Alfredo Antón Gutiérrez</h3>
+            <div class="role" data-en="HR Generalist · U.S. HR Operations · HRIS &amp; Compliance" data-es="Generalista de RRHH · Operaciones de RRHH EE.UU. · HRIS y Cumplimiento">HR Generalist · U.S. HR Operations · HRIS &amp; Compliance</div>
+          </div>
+        </div>
+
+        <div class="stat-cards">
+          <div class="stat-card"><div class="num">8+</div><div class="lbl" data-en="Years in HR Ops" data-es="Años en RRHH">Years in HR Ops</div></div>
+          <div class="stat-card"><div class="num">16+1</div><div class="lbl" data-en="HSRs &amp; Lead Managed" data-es="Representantes a cargo">HSRs &amp; Lead Managed</div></div>
+          <div class="stat-card"><div class="num">6</div><div class="lbl" data-en="LATAM Countries" data-es="Países LATAM">LATAM Countries</div></div>
+          <div class="stat-card"><div class="num">ES·EN</div><div class="lbl" data-en="Bilingual" data-es="Bilingüe">Bilingual</div></div>
+        </div>
+
+        <div class="bio">
+          <p data-en="I care about the systems behind the people work: whether an onboarding request actually clears every approval, whether a dashboard tells a leader the truth about SLA risk, whether an audit finding turns into a fixed process instead of a repeated one." data-es="Me apasionan los sistemas que respaldan la gestión humana: asegurar que cada contratación cumpla con sus aprobaciones, que los tableros de control reflejen con precisión los riesgos de SLA y que los hallazgos de auditoría se transformen en procesos optimizados.">I care about the systems behind the people work: whether an onboarding request actually clears every approval, whether a dashboard tells a leader the truth about SLA risk, whether an audit finding turns into a fixed process instead of a repeated one.</p>
+          <p data-en="Over 8 years at Estée Lauder Companies (OneSource) I've worked both sides of that — validating and auditing the data as a QA Analyst, then owning it as a supervisor managing <strong>up to 16 HR Service Representatives and 1 Team Lead</strong> across US, LATAM, Canada, and I-9 populations." data-es="Durante más de 8 años en Estée Lauder Companies (OneSource), trabajé en ambas caras de la gestión: auditando datos como Analista QA y posteriormente liderando como supervisor a un equipo de <strong>hasta 16 Representantes de Servicios de RRHH y 1 Líder de Equipo</strong> para EE.UU., LATAM, Canadá y procesos Form I-9.">Over 8 years at Estée Lauder Companies (OneSource) I've worked both sides of that — validating and auditing the data as a QA Analyst, then owning it as a supervisor managing <strong>up to 16 HR Service Representatives and 1 Team Lead</strong> across US, LATAM, Canada, and I-9 populations.</p>
+        </div>
+
+        <div class="phil-panel">
+          <div class="eyebrow" data-en="Philosophy" data-es="Filosofía">Philosophy</div>
+          <h3 data-en="Good HR operations should be invisible — until someone needs them to be perfect." data-es="Una excelente gestión operativa de RRHH es fluida e imperceptible... hasta que se exige máxima perfección.">Good HR operations should be invisible — until someone needs them to be perfect.</h3>
+          <p data-en="I'd rather build the control, form, or automation that prevents the error than write the report explaining it afterward." data-es="Prefiero diseñar el control o la automatización que previene el error antes que elaborar un informe explicando la falla.">I'd rather build the control, form, or automation that prevents the error than write the report explaining it afterward.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="tab-pane" id="experience">
+    <section class="sec">
+      <div class="wrap">
+        <div class="eyebrow" data-en="Trajectory" data-es="Trayectoria">Trajectory</div>
+        <h2 data-en="Professional Experience" data-es="Experiencia Profesional">Professional Experience</h2>
+
+        <div class="timeline">
+          <div class="t-item">
+            <div class="t-card">
+              <div class="t-head">
+                <div class="t-title">
+                  <h3 data-en="HR Services Supervisor" data-es="Supervisor de Servicios de RRHH">HR Services Supervisor</h3>
+                  <div class="org">Estée Lauder Companies — OneSource</div>
+                </div>
+                <div class="t-date" data-en="Apr 2024 — Jun 2026" data-es="Abr 2024 — Jun 2026">Apr 2024 — Jun 2026</div>
+              </div>
+              <div class="t-scope" data-en="US Corporate, Manufacturing &amp; Distribution, LATAM, Canada, I-9" data-es="EE.UU. Corporativo, Manufactura y Distribución, LATAM, Canadá, Form I-9">US Corporate, Manufacturing &amp; Distribution, LATAM, Canada, I-9</div>
+              <ul class="tags">
+                <li data-en="16 HSRs + 1 Team Lead" data-es="16 Representantes + 1 Líder">16 HSRs + 1 Team Lead</li>
+                <li data-en="6-country payroll coordination" data-es="Coordinación nómina (6 países)">6-country payroll coordination</li>
+                <li data-en="SOX audit coverage" data-es="Auditorías SOX">SOX audit coverage</li>
+              </ul>
+              <ul class="log">
+                <li data-en="Managed up to <strong>16 HR Service Representatives and 1 Team Lead</strong> through 1:1s, feedback, and coaching." data-es="Lideré y asesoré a un equipo de hasta <strong>16 Representantes y 1 Líder de Equipo</strong> mediante sesiones 1:1 y coaching.">Managed up to <strong>16 HR Service Representatives and 1 Team Lead</strong> through 1:1s, feedback, and coaching.</li>
+                <li data-en="Coordinated payroll cutoffs and transaction readiness across <strong>6 LATAM countries</strong>, resolving missing approvals before close." data-es="Supervisé los cierres de nómina e ingresos de transacciones para <strong>6 países de LATAM</strong>, resolviendo discrepancias y aprobaciones antes del cierre.">Coordinated payroll cutoffs and transaction readiness across <strong>6 LATAM countries</strong>, resolving missing approvals before close.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="tab-pane" id="skills">
+    <section class="sec">
+      <div class="wrap">
+        <div class="eyebrow" data-en="Capabilities" data-es="Capacidades">Capabilities</div>
+        <h2 data-en="Skills &amp; Toolkit" data-es="Habilidades y Herramientas">Skills &amp; Toolkit</h2>
+
+        <div class="capacidades" id="dynamic-cap-pills">
+          <span class="cap-pill"><span class="sq"></span><span data-en="U.S. &amp; Multi-Country HR Operations" data-es="Operaciones de RRHH (EE.UU. y Multipaís)">U.S. &amp; Multi-Country HR Operations</span></span>
+          <span class="cap-pill"><span class="sq"></span><span data-en="Compliance &amp; Audit Readiness" data-es="Cumplimiento Normativo y Auditorías">Compliance &amp; Audit Readiness</span></span>
+          <span class="cap-pill"><span class="sq"></span><span data-en="HR Analytics &amp; Reporting" data-es="Analítica de Datos e Informes">HR Analytics &amp; Reporting</span></span>
+        </div>
+
+        <div id="dynamic-tool-groups">
+          <div class="tool-group">
+            <div class="label" data-en="HRIS, ATS &amp; CRM Systems" data-es="Sistemas HRIS, ATS y CRM">HRIS, ATS &amp; CRM Systems</div>
+            <div class="tool-row">
+              <span class="tool-chip">Oracle HR Connect</span>
+              <span class="tool-chip">Salesforce</span>
+              <span class="tool-chip">SharePoint</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="tab-pane" id="education">
+    <section class="sec">
+      <div class="wrap">
+        <div class="eyebrow" data-en="Background" data-es="Formación">Background</div>
+        <h2 data-en="Education &amp; Languages" data-es="Educación e Idiomas">Education &amp; Languages</h2>
+
+        <div class="two-col">
+          <div class="card">
+            <div class="label" data-en="Education" data-es="Educación">Education</div>
+            <div class="edu-item">
+              <div class="deg" data-en="Bachelor in Digital Animation" data-es="Licenciatura en Animación Digital">Bachelor in Digital Animation</div>
+              <div class="inst">Universidad Latina de Panamá · 2017</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="label" data-en="Languages" data-es="Idiomas">Languages</div>
+            <div class="lang-row"><span data-en="Spanish — Native" data-es="Español — Nativo">Spanish — Native</span><div class="lang-bar"><i style="width:100%"></i></div></div>
+            <div class="lang-row"><span data-en="English — Fluent" data-es="Inglés — Avanzado / Bilingüe">English — Fluent</span><div class="lang-bar"><i style="width:100%"></i></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="tab-pane" id="contact">
+    <section class="sec">
+      <div class="wrap">
+        <div class="eyebrow" data-en="Status" data-es="Estado">Status</div>
+        <h2 data-en="Ready to <span style='color:var(--accent)'>start</span>." data-es="Listo para <span style='color:var(--accent)'>colaborar</span>.">Ready to <span style="color:var(--accent)">start</span>.</h2>
+        <p class="lede" data-en="Open for new opportunities — let's connect." data-es="Disponible para nuevas oportunidades profesionales — conversemos.">Open for new opportunities — let's connect.</p>
+
+        <div class="contact-cards">
+          <a class="c-card" href="mailto:carlosanton280693@gmail.com">
+            <span class="ico">✉</span>
+            <span><span class="lbl" data-en="Email" data-es="Correo">Email</span><br><span class="val">carlosanton280693@gmail.com</span></span>
+          </a>
+          <a class="c-card" href="tel:+50768922212">
+            <span class="ico">☎</span>
+            <span><span class="lbl" data-en="Phone" data-es="Teléfono">Phone</span><br><span class="val">+507 6892-2212</span></span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<div class="modal-overlay" id="login-modal">
+  <div class="modal-card">
+    <h3>Admin Access</h3>
+    <p>Enter credentials to edit content globally.</p>
+    <div class="form-group">
+      <label>Username</label>
+      <input type="text" id="admin-user" class="form-control" placeholder="Username">
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="admin-pass" class="form-control" placeholder="Password">
+    </div>
+    <div style="color: #EF4444; font-size: 12px; display: none; margin-bottom: 10px;" id="login-error">Invalid Username or Password</div>
+    <div class="modal-btns">
+      <button class="btn ghost" onclick="closeModal('login-modal')">Cancel</button>
+      <button class="btn primary" onclick="handleLogin()">Login</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="update-modal">
+  <div class="modal-card">
+    <h3>Update Cloud Profile</h3>
+    <p>Edits will instantly sync worldwide for all visitors.</p>
+    <div class="form-group">
+      <label>Profile Picture URL</label>
+      <input type="text" id="pic-url-input" class="form-control" placeholder="Paste image URL...">
+    </div>
+    <div class="form-group">
+      <label>Core Capabilities (Comma Separated)</label>
+      <input type="text" id="cap-input" class="form-control" placeholder="e.g. HR Operations, Compliance">
+    </div>
+    <div class="form-group">
+      <label>Tool Chips (Comma Separated)</label>
+      <input type="text" id="tools-input" class="form-control" placeholder="e.g. Oracle, Power BI, Salesforce">
+    </div>
+    <div class="modal-btns">
+      <button class="btn ghost" onclick="closeModal('update-modal')">Cancel</button>
+      <button class="btn primary" onclick="saveCloudUpdates()">Save to Cloud</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="foot-note">
+    <span data-en="Panama City, Panama — Optimized for Mobile &amp; Global Sync." data-es="Ciudad de Panamá, Panamá — Optimizado para móviles y sincronización global.">Panama City, Panama — Optimized for Mobile &amp; Global Sync.</span>
+  </div>
+</footer>
+
+<script>
+  // CONFIGURATION: Replace with your actual JSONBin Details
+  const BIN_ID = 'YOUR_JSONBIN_ID_HERE';
+  const API_KEY = 'YOUR_JSONBIN_MASTER_KEY_HERE';
+
+  let currentLang = 'en';
+
+  function selectLanguage(lang) {
+    document.getElementById('splash-screen').classList.add('hidden');
+    setLanguage(lang);
+  }
+
+  function setLanguage(lang) {
+    currentLang = lang;
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.getElementById('btn-es').classList.toggle('active', lang === 'es');
+    document.querySelectorAll('[data-en]').forEach(el => {
+      const text = el.getAttribute(`data-${lang}`);
+      if (text) el.innerHTML = text;
+    });
+    document.documentElement.lang = lang;
+  }
+
+  const tabLinks = document.querySelectorAll('.tab-link');
+  const tabPanes = document.querySelectorAll('.tab-pane');
+  const allNavItems = document.querySelectorAll('.topbar-inner a');
+
+  function switchTab(targetId) {
+    window.scrollTo(0, 0);
+    tabPanes.forEach(pane => pane.classList.toggle('active', pane.id === targetId));
+    allNavItems.forEach(link => link.classList.toggle('active', link.dataset.tab === targetId));
+  }
+
+  tabLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (link.dataset.tab) switchTab(link.dataset.tab);
+    });
+  });
+
+  function openLoginModal() {
+    document.getElementById('admin-user').value = '';
+    document.getElementById('admin-pass').value = '';
+    document.getElementById('login-error').style.display = 'none';
+    document.getElementById('login-modal').classList.add('active');
+  }
+
+  function closeModal(modalId) {
+    document.getElementById(modalId).classList.remove('active');
+  }
+
+  function handleLogin() {
+    const user = document.getElementById('admin-user').value.trim();
+    const pass = document.getElementById('admin-pass').value.trim();
+    if (user === 'cantong22' && pass === 'Mrbo0gie') {
+      closeModal('login-modal');
+      populateUpdateForm();
+      document.getElementById('update-modal').classList.add('active');
+    } else {
+      document.getElementById('login-error').style.display = 'block';
+    }
+  }
+
+  function populateUpdateForm() {
+    document.getElementById('pic-url-input').value = document.getElementById('profile-img-display').src;
+    const pills = Array.from(document.querySelectorAll('#dynamic-cap-pills .cap-pill span:last-child')).map(el => el.innerText);
+    document.getElementById('cap-input').value = pills.join(', ');
+    const tools = Array.from(document.querySelectorAll('#dynamic-tool-groups .tool-chip')).map(el => el.innerText);
+    document.getElementById('tools-input').value = tools.join(', ');
+  }
+
+  // Fetch live updates from JSONBin when page loads
+  async function loadCloudData() {
+    if (BIN_ID === 'YOUR_JSONBIN_ID_HERE') return;
+    try {
+      const response = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+        headers: { 'X-Master-Key': API_KEY }
+      });
+      const data = await response.json();
+      const record = data.record;
+      if (record.profilePic) {
+        document.getElementById('profile-img-display').src = record.profilePic;
+      }
+      if (record.capabilities) {
+        renderCapabilities(record.capabilities);
+      }
+      if (record.tools) {
+        renderTools(record.tools);
+      }
+    } catch (e) {
+      console.error("Error loading cloud data", e);
+    }
+  }
+
+  function renderCapabilities(capString) {
+    const capArray = capString.split(',').map(s => s.trim()).filter(Boolean);
+    document.getElementById('dynamic-cap-pills').innerHTML = capArray.map(cap => `
+      <span class="cap-pill"><span class="sq"></span><span>${cap}</span></span>
+    `).join('');
+  }
+
+  function renderTools(toolsString) {
+    const toolsArray = toolsString.split(',').map(s => s.trim()).filter(Boolean);
+    document.getElementById('dynamic-tool-groups').innerHTML = `
+      <div class="tool-group">
+        <div class="label" data-en="HRIS, ATS &amp; CRM Systems" data-es="Sistemas HRIS, ATS y CRM">Systems &amp; Tools</div>
+        <div class="tool-row">
+          ${toolsArray.map(tool => `<span class="tool-chip">${tool}</span>`).join('')}
+        </div>
+      </div>
+    `;
+  }
+
+  async function saveCloudUpdates() {
+    const profilePic = document.getElementById('pic-url-input').value.trim();
+    const capabilities = document.getElementById('cap-input').value.trim();
+    const tools = document.getElementById('tools-input').value.trim();
+
+    const payload = { profilePic, capabilities, tools };
+
+    if (BIN_ID !== 'YOUR_JSONBIN_ID_HERE') {
+      try {
+        await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Master-Key': API_KEY
+          },
+          body: JSON.stringify(payload)
+        });
+        alert('Successfully saved to cloud! Visitors will now see your updates.');
+      } catch (e) {
+        alert('Error saving to cloud bin.');
+      }
+    }
+
+    if (profilePic) document.getElementById('profile-img-display').src = profilePic;
+    if (capabilities) renderCapabilities(capabilities);
+    if (tools) renderTools(tools);
+
+    closeModal('update-modal');
+  }
+
+  document.addEventListener('DOMContentLoaded', loadCloudData);
+</script>
 </body>
 </html>
