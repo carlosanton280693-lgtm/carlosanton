@@ -112,17 +112,6 @@
     cursor: pointer; display: inline-flex; align-items: center; justify-content: center;
   }
   nav.links a:hover, nav.links a.active{ color: var(--text); background: var(--panel-2); }
-  
-  nav.links a.active::before {
-    content: '✏️';
-    position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
-    font-size: 10px; line-height: 1; pointer-events: none; animation: bounce 0.3s ease;
-  }
-
-  @keyframes bounce {
-    0% { transform: translate(-50%, -4px); opacity: 0; }
-    100% { transform: translate(-50%, 0); opacity: 1; }
-  }
 
   .nav-right { display: flex; align-items: center; gap: 12px; }
 
@@ -145,10 +134,14 @@
     transition: transform .15s ease, box-shadow .15s ease; white-space: nowrap; cursor: pointer;
   }
   .cta-nav:hover{ transform: translateY(-1px); box-shadow: 0 6px 18px -6px rgba(59,130,246,.6); }
-  .cta-nav.active::before {
-    content: '✏️'; position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
-    font-size: 10px; line-height: 1; pointer-events: none;
+  
+  .admin-btn {
+    font-family: var(--mono); font-size: 12px; background: var(--panel-2);
+    border: 1px solid var(--line); color: var(--muted); padding: 6px 12px;
+    border-radius: 999px; cursor: pointer; transition: all 0.2s ease;
   }
+  .admin-btn:hover { border-color: var(--accent); color: var(--text); }
+
   @media (max-width: 820px){ nav.links{ display:none; } }
 
   /* ---------- SPA TAB PANES ---------- */
@@ -319,16 +312,40 @@
   .progress-labels{ display:flex; justify-content: space-between; font-family: var(--mono); font-size: 10.5px; letter-spacing:.03em; color: var(--muted-2); text-transform: uppercase; }
   .progress-labels .on{ color: var(--accent); font-weight: 600; }
 
-  .contact-cards{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-  @media (max-width: 720px){ .contact-cards{ grid-template-columns: 1fr; } }
+  .contact-cards{ display:grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  @media (max-width: 820px){ .contact-cards{ grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px){ .contact-cards{ grid-template-columns: 1fr; } }
   .c-card{ background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; display:flex; align-items:center; gap: 12px; transition: border-color .2s ease, transform .2s ease; }
   .c-card:hover{ border-color: var(--accent); transform: translateY(-2px); }
-  .c-card .ico{ width: 34px; height: 34px; border-radius: 99px; background: var(--accent-dim); color: var(--accent); display:flex; align-items:center; justify-content:center; flex: 0 0 auto; }
+  .c-card .ico{ width: 34px; height: 34px; border-radius: 99px; background: var(--accent-dim); color: var(--accent); display:flex; align-items:center; justify-content:center; flex: 0 0 auto; font-weight: 700; }
   .c-card .lbl{ font-family: var(--mono); font-size: 10.5px; letter-spacing:.05em; text-transform: uppercase; color: var(--muted-2); }
   .c-card .val{ font-size: 13.5px; font-weight: 600; color: var(--text); word-break: break-word; }
 
+  /* ---------- MODAL (ADMIN / UPDATE) ---------- */
+  .modal-overlay {
+    position: fixed; inset:0; z-index: 1000; background: rgba(8,11,17,0.85);
+    backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center;
+    opacity: 0; visibility: hidden; transition: all 0.3s ease; padding: 20px;
+  }
+  .modal-overlay.active { opacity: 1; visibility: visible; }
+  .modal-card {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 20px;
+    padding: 30px; max-width: 480px; width: 100%; box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+  }
+  .modal-card h3 { font-family: var(--display); margin: 0 0 6px; font-size: 20px; }
+  .modal-card p { font-size: 13px; color: var(--muted); margin: 0 0 20px; }
+  .form-group { margin-bottom: 16px; text-align: left; }
+  .form-group label { display: block; font-family: var(--mono); font-size: 11px; color: var(--muted); margin-bottom: 6px; text-transform: uppercase; }
+  .form-control {
+    width: 100%; background: var(--panel-2); border: 1px solid var(--line);
+    color: var(--text); border-radius: 8px; padding: 10px 12px; font-family: var(--sans); font-size: 14px;
+  }
+  .form-control:focus { border-color: var(--accent); outline: none; }
+  .modal-btns { display: flex; gap: 10px; justify-content: flex-end; margin-top: 24px; }
+
   footer{ padding: 40px 0; text-align:center; margin-top: auto; border-top: 1px solid var(--line-soft); }
   footer .foot-note{ font-family: var(--mono); font-size: 11px; color: var(--muted-2); }
+  footer a { color: var(--accent); text-decoration: underline; }
 
   @media (prefers-reduced-motion: reduce){
     .tab-pane{ transition:none; }
@@ -343,11 +360,9 @@
 <div id="splash-screen">
   <div class="splash-card">
     <div class="splash-logos">
-      <!-- HR Icon -->
       <div class="splash-icon" title="HR Operations">
         <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
       </div>
-      <!-- Customer Service Icon -->
       <div class="splash-icon" title="Customer Service & Experience">
         <svg viewBox="0 0 24 24"><path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57-.35-.11-.74-.03-1.02.24l-2.2 2.2c-2.83-1.44-5.15-3.75-6.59-6.59l2.2-2.21c.28-.26.36-.65.25-1C8.7 6.45 8.5 5.25 8.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1zM12 3v10l3-3h4c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1h-7z"/></svg>
       </div>
@@ -372,6 +387,7 @@
       <a data-tab="education" class="tab-link" data-en="Background" data-es="Formación">Background</a>
     </nav>
     <div class="nav-right">
+      <button class="admin-btn" onclick="openLoginModal()" title="Admin Settings">⚙ Edit</button>
       <div class="lang-toggle">
         <button id="btn-en" onclick="setLanguage('en')" class="active">EN</button>
         <button id="btn-es" onclick="setLanguage('es')">ES</button>
@@ -412,8 +428,7 @@
 
         <div class="about-profile-center">
           <div class="profile-frame">
-            <!-- Ensure your image file is named profile.jpg or replace src accordingly -->
-            <img src="profile.jpg" alt="Carlos Alfredo Antón Gutiérrez">
+            <img id="profile-img-display" src="profile.jpg" alt="Carlos Alfredo Antón Gutiérrez">
           </div>
           <div class="who">
             <h3>Carlos Alfredo Antón Gutiérrez</h3>
@@ -547,9 +562,9 @@
       <div class="wrap">
         <div class="eyebrow" data-en="Capabilities" data-es="Capacidades">Capabilities</div>
         <h2 data-en="Skills &amp; Toolkit" data-es="Habilidades y Herramientas">Skills &amp; Toolkit</h2>
-        <p class="lede" data-en="What I bring to every HR &amp; operations engagement." data-es="Mi propuesta de valor en operaciones de RRHH y experiencia al cliente.">What I bring to every HR &amp; operations engagement.</p>
+        <p class="lede" data-en="What I bring to every HR &amp; operations engagement." data-es="Mi propuesta de valor en operaciones de RRHH y atención al cliente.">What I bring to every HR &amp; operations engagement.</p>
 
-        <div class="capacidades">
+        <div class="capacidades" id="dynamic-cap-pills">
           <span class="cap-pill"><span class="sq"></span><span data-en="U.S. &amp; Multi-country HR Operations" data-es="Operaciones de RRHH (EE.UU. y LATAM)">U.S. &amp; Multi-country HR Operations</span></span>
           <span class="cap-pill"><span class="sq"></span><span data-en="Employee Lifecycle Management" data-es="Gestión del Ciclo de Vida del Empleado">Employee Lifecycle Management</span></span>
           <span class="cap-pill"><span class="sq"></span><span data-en="Compliance &amp; Audit Readiness" data-es="Cumplimiento Normativo y Auditorías">Compliance &amp; Audit Readiness</span></span>
@@ -558,7 +573,7 @@
           <span class="cap-pill"><span class="sq"></span><span data-en="Customer Service &amp; Partner Alignment" data-es="Servicio al Cliente y Gestión de Stakeholders">Customer Service &amp; Partner Alignment</span></span>
         </div>
 
-        <div>
+        <div id="dynamic-tool-groups">
           <div class="tool-group">
             <div class="label" data-en="HRIS, ATS &amp; CRM Systems" data-es="Sistemas HRIS, ATS y CRM">HRIS, ATS &amp; CRM Systems</div>
             <div class="tool-row">
@@ -608,8 +623,7 @@
           <div class="card">
             <div class="label" data-en="Languages" data-es="Idiomas">Languages</div>
             <div class="lang-row"><span data-en="Spanish — Native" data-es="Español — Nativo">Spanish — Native</span><div class="lang-bar"><i style="width:100%"></i></div></div>
-            <div class="lang-row"><span data-en="English — Fluent" data-es="Inglés — Avanzado / Bilingüe">English — Fluent</span><div class="lang-bar"><i style="width:95%"></i></div></div>
-            <div class="lang-row"><span data-en="French — Basic" data-es="Francés — Básico">French — Basic</span><div class="lang-bar"><i style="width:35%"></i></div></div>
+            <div class="lang-row"><span data-en="English — Fluent" data-es="Inglés — Avanzado / Bilingüe">English — Fluent</span><div class="lang-bar"><i style="width:100%"></i></div></div>
           </div>
         </div>
       </div>
@@ -655,6 +669,10 @@
             <span class="ico">☎</span>
             <span><span class="lbl" data-en="Phone" data-es="Teléfono">Phone</span><br><span class="val">+507 6892-2212</span></span>
           </a>
+          <a class="c-card" href="https://www.linkedin.com/in/carlos-ant%C3%B3n-166144152/" target="_blank" rel="noopener noreferrer">
+            <span class="ico">in</span>
+            <span><span class="lbl">LinkedIn</span><br><span class="val">Carlos Antón</span></span>
+          </a>
           <span class="c-card" style="cursor:default;">
             <span class="ico">◎</span>
             <span><span class="lbl" data-en="Location" data-es="Ubicación">Location</span><br><span class="val">Panama City, Panama</span></span>
@@ -666,8 +684,61 @@
 
 </main>
 
+<!-- LOGIN MODAL -->
+<div class="modal-overlay" id="login-modal">
+  <div class="modal-card">
+    <h3>Admin Access</h3>
+    <p>Please enter credentials to edit content.</p>
+    <div class="form-group">
+      <label>Username</label>
+      <input type="text" id="admin-user" class="form-control" placeholder="Username">
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="admin-pass" class="form-control" placeholder="Password">
+    </div>
+    <div style="color: #EF4444; font-size: 12px; display: none; margin-bottom: 10px;" id="login-error">Invalid Username or Password</div>
+    <div class="modal-btns">
+      <button class="btn ghost" onclick="closeModal('login-modal')">Cancel</button>
+      <button class="btn primary" onclick="handleLogin()">Login</button>
+    </div>
+  </div>
+</div>
+
+<!-- UPDATE MODAL -->
+<div class="modal-overlay" id="update-modal">
+  <div class="modal-card">
+    <h3>Update Profile &amp; Skills</h3>
+    <p>Make edits below and save directly to page view.</p>
+    
+    <div class="form-group">
+      <label>Profile Picture URL / Upload</label>
+      <input type="file" id="pic-file-input" class="form-control" accept="image/*" style="margin-bottom: 8px;">
+      <input type="text" id="pic-url-input" class="form-control" placeholder="Or paste image URL...">
+    </div>
+
+    <div class="form-group">
+      <label>Core Capability Pills (Comma Separated)</label>
+      <input type="text" id="cap-input" class="form-control" placeholder="e.g. HR Operations, Compliance, Analytics">
+    </div>
+
+    <div class="form-group">
+      <label>Tool Chips (Comma Separated)</label>
+      <input type="text" id="tools-input" class="form-control" placeholder="e.g. Oracle, Power BI, Excel, Salesforce">
+    </div>
+
+    <div class="modal-btns">
+      <button class="btn ghost" onclick="closeModal('update-modal')">Cancel</button>
+      <button class="btn primary" onclick="saveAdminUpdates()">Save Changes</button>
+    </div>
+  </div>
+</div>
+
 <footer>
-  <div class="foot-note" data-en="Panama City, Panama — built as a static page, ready for deployment." data-es="Ciudad de Panamá, Panamá — sitio estático listo para despliegue.">Panama City, Panama — built as a static page, ready for deployment.</div>
+  <div class="foot-note">
+    <span data-en="Panama City, Panama — built as a static page, ready for deployment." data-es="Ciudad de Panamá, Panamá — sitio estático listo para despliegue.">Panama City, Panama — built as a static page, ready for deployment.</span>
+    · <a href="https://www.linkedin.com/in/carlos-ant%C3%B3n-166144152/" target="_blank" rel="noopener noreferrer">LinkedIn Profile</a>
+  </div>
 </footer>
 
 <script>
@@ -681,11 +752,9 @@
   function setLanguage(lang) {
     currentLang = lang;
 
-    // Toggle button UI
     document.getElementById('btn-en').classList.toggle('active', lang === 'en');
     document.getElementById('btn-es').classList.toggle('active', lang === 'es');
 
-    // Update all elements with data attributes
     document.querySelectorAll('[data-en]').forEach(el => {
       const text = el.getAttribute(`data-${lang}`);
       if (text) {
@@ -693,11 +762,9 @@
       }
     });
 
-    // Adjust document html lang attribute
     document.documentElement.lang = lang;
   }
 
-  // TAB SWITCHING
   const tabLinks = document.querySelectorAll('.tab-link');
   const tabPanes = document.querySelectorAll('.tab-pane');
   const allNavItems = document.querySelectorAll('.topbar-inner a');
@@ -730,7 +797,88 @@
     });
   });
 
-  // Background Particles Engine
+  /* ---------- ADMIN / AUTH FUNCTIONS ---------- */
+  function openLoginModal() {
+    document.getElementById('admin-user').value = '';
+    document.getElementById('admin-pass').value = '';
+    document.getElementById('login-error').style.display = 'none';
+    document.getElementById('login-modal').classList.add('active');
+  }
+
+  function closeModal(modalId) {
+    document.getElementById(modalId).classList.remove('active');
+  }
+
+  function handleLogin() {
+    const user = document.getElementById('admin-user').value.trim();
+    const pass = document.getElementById('admin-pass').value.trim();
+
+    if (user === 'cantong22' && pass === 'Mrbo0gie') {
+      closeModal('login-modal');
+      populateUpdateForm();
+      document.getElementById('update-modal').classList.add('active');
+    } else {
+      document.getElementById('login-error').style.display = 'block';
+    }
+  }
+
+  function populateUpdateForm() {
+    const currentImg = document.getElementById('profile-img-display').src;
+    document.getElementById('pic-url-input').value = currentImg.startsWith('data:') ? '' : currentImg;
+
+    // Load capability pills
+    const pills = Array.from(document.querySelectorAll('#dynamic-cap-pills .cap-pill span:last-child')).map(el => el.innerText);
+    document.getElementById('cap-input').value = pills.join(', ');
+
+    // Load tools
+    const tools = Array.from(document.querySelectorAll('#dynamic-tool-groups .tool-chip')).map(el => el.innerText);
+    document.getElementById('tools-input').value = tools.join(', ');
+  }
+
+  function saveAdminUpdates() {
+    // 1. Picture update
+    const fileInput = document.getElementById('pic-file-input');
+    const urlInput = document.getElementById('pic-url-input').value.trim();
+    
+    if (fileInput.files && fileInput.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        document.getElementById('profile-img-display').src = e.target.result;
+      };
+      reader.readAsDataURL(fileInput.files[0]);
+    } else if (urlInput !== '') {
+      document.getElementById('profile-img-display').src = urlInput;
+    }
+
+    // 2. Capabilities update
+    const capVal = document.getElementById('cap-input').value.trim();
+    if (capVal) {
+      const capArray = capVal.split(',').map(s => s.trim()).filter(Boolean);
+      const capContainer = document.getElementById('dynamic-cap-pills');
+      capContainer.innerHTML = capArray.map(cap => `
+        <span class="cap-pill"><span class="sq"></span><span>${cap}</span></span>
+      `).join('');
+    }
+
+    // 3. Tools update
+    const toolsVal = document.getElementById('tools-input').value.trim();
+    if (toolsVal) {
+      const toolsArray = toolsVal.split(',').map(s => s.trim()).filter(Boolean);
+      const toolContainer = document.getElementById('dynamic-tool-groups');
+      toolContainer.innerHTML = `
+        <div class="tool-group">
+          <div class="label">Updated Skills &amp; Tools</div>
+          <div class="tool-row">
+            ${toolsArray.map(tool => `<span class="tool-chip">${tool}</span>`).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    closeModal('update-modal');
+  }
+
+  /* ---------- BACKGROUND PARTICLES ---------- */
   (function(){
     const canvas = document.getElementById('particles');
     if (!canvas) return;
