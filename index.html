@@ -94,8 +94,8 @@
     <div id="public-view">
       <div class="card">
         <h2 id="view-title">HR Operations & Talent Development</h2>
-        <p><strong>Capabilities:</strong> <span id="view-capabilities">Loading...</span></p>
-        <p><strong>Tools & Proficiencies:</strong> <span id="view-tools">Loading...</span></p>
+        <p><strong>Capabilities:</strong> <span id="view-capabilities">Click 'Edit' to add your capabilities or save them to your cloud bin.</span></p>
+        <p><strong>Tools & Proficiencies:</strong> <span id="view-tools">Click 'Edit' to add your tools.</span></p>
       </div>
     </div>
 
@@ -123,16 +123,17 @@
           headers: { 'X-Master-Key': API_KEY }
         });
         const data = await response.json();
-        const record = data.record;
+        const record = data.record || {};
 
-        // Populate fields
-        document.getElementById('view-capabilities').innerText = record.capabilities || '';
-        document.getElementById('view-tools').innerText = record.tools || '';
+        // Populate fields with data or fallbacks
+        document.getElementById('view-capabilities').innerText = record.capabilities || 'No capabilities added yet.';
+        document.getElementById('view-tools').innerText = record.tools || 'No tools added yet.';
 
         document.getElementById('input-capabilities').value = record.capabilities || '';
         document.getElementById('input-tools').value = record.tools || '';
       } catch (error) {
         console.error('Error fetching data:', error);
+        document.getElementById('view-capabilities').innerText = 'Error loading content from cloud.';
       }
     }
 
