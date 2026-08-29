@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HR Professional Portfolio</title>
-  <style>
+<style>
     :root {
       --bg-color: #0f172a;
       --card-bg: #1e293b;
@@ -21,16 +15,17 @@
       margin: 0;
       padding: 0;
       line-height: 1.6;
+      -webkit-text-size-adjust: 100%;
     }
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1.5rem 2rem;
+      padding: 1rem 1.5rem;
       border-bottom: 1px solid var(--border);
       background: var(--card-bg);
     }
-    h1 { margin: 0; font-size: 1.5rem; }
+    h1 { margin: 0; font-size: 1.25rem; }
     button {
       background-color: var(--accent);
       color: white;
@@ -44,17 +39,20 @@
     button:hover { background-color: var(--accent-hover); }
     main {
       max-width: 800px;
-      margin: 3rem auto;
-      padding: 0 1.5rem;
+      margin: 1.5rem auto;
+      padding: 0 1rem;
+      box-sizing: border-box;
     }
     .card {
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 2rem;
-      margin-bottom: 2rem;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-sizing: border-box;
+      word-wrap: break-word;
     }
-    .card h2 { margin-top: 0; color: var(--accent); }
+    .card h2 { margin-top: 0; color: var(--accent); font-size: 1.2rem; }
     #admin-panel { display: none; }
     input, textarea {
       width: 100%;
@@ -66,117 +64,14 @@
       margin-top: 0.5rem;
       margin-bottom: 1.2rem;
       box-sizing: border-box;
+      font-size: 1rem; /* Prevents mobile browser auto-zoom */
     }
     textarea { height: 120px; resize: vertical; }
+
+    /* Mobile Enhancements */
+    @media (max-width: 600px) {
+      header { padding: 1rem; }
+      main { margin: 1rem auto; padding: 0 0.5rem; }
+      .card { padding: 1rem; }
+    }
   </style>
-</head>
-<body>
-
-  <header>
-    <h1>HR Portfolio</h1>
-    <button id="edit-toggle-btn" onclick="toggleAdmin()">⚙ Edit</button>
-  </header>
-
-  <main>
-    <!-- Public Portfolio View -->
-    <div id="public-view">
-      <div class="card">
-        <h2 id="view-title">HR Operations & Talent Development</h2>
-        <p><strong>Capabilities:</strong> <span id="view-capabilities">Loading...</span></p>
-        <p><strong>Tools & Proficiencies:</strong> <span id="view-tools">Loading...</span></p>
-      </div>
-    </div>
-
-    <!-- Admin Edit Panel -->
-    <div id="admin-panel" class="card">
-      <h2>Admin Control Panel</h2>
-      <label>Capabilities</label>
-      <textarea id="input-capabilities"></textarea>
-
-      <label>Tools & Proficiencies</label>
-      <textarea id="input-tools"></textarea>
-
-      <button onclick="saveToCloud()">Save to Cloud</button>
-    </div>
-  </main>
-
-  <script>
-    // CONFIGURATION: Linked to your JSONbin
-    const BIN_ID = '6a933c93f5f4af5e2952a9e1';
-    const API_KEY = '$2a$10$tq8yNqg7KeFq7I7ZhLRvoO0PAPJWRf57aq6pr6TPbagfVDPcT2Fwe';
-
-    async function fetchPortfolioData() {
-      try {
-        const response = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
-          headers: { 'X-Master-Key': API_KEY }
-        });
-        const data = await response.json();
-        const record = data.record;
-
-        // Populate fields
-        document.getElementById('view-capabilities').innerText = record.capabilities || '';
-        document.getElementById('view-tools').innerText = record.tools || '';
-
-        document.getElementById('input-capabilities').value = record.capabilities || '';
-        document.getElementById('input-tools').value = record.tools || '';
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    }
-
-    function toggleAdmin() {
-      const panel = document.getElementById('admin-panel');
-      const publicView = document.getElementById('public-view');
-      const btn = document.getElementById('edit-toggle-btn');
-
-      if (panel.style.display === 'block') {
-        panel.style.display = 'none';
-        publicView.style.display = 'block';
-        btn.innerText = '⚙ Edit';
-      } else {
-        const password = prompt("Enter admin password:");
-        if (password === 'cantong22' || password === 'Mrbo0gie') {
-          panel.style.display = 'block';
-          publicView.style.display = 'none';
-          btn.innerText = 'Close Edit';
-        } else if (password !== null) {
-          alert('Incorrect password.');
-        }
-      }
-    }
-
-    async function saveToCloud() {
-      const updatedData = {
-        profilePic: "WhatsApp Image 2026-07-08 at 10.24.05 AM.jpeg",
-        capabilities: document.getElementById('input-capabilities').value,
-        tools: document.getElementById('input-tools').value
-      };
-
-      try {
-        const response = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Master-Key': API_KEY
-          },
-          body: JSON.stringify(updatedData)
-        });
-
-        if (response.ok) {
-          alert('Successfully saved to cloud!');
-          toggleAdmin();
-          fetchPortfolioData();
-        } else {
-          alert('Failed to save changes.');
-        }
-      } catch (error) {
-        console.error('Error saving data:', error);
-        alert('An error occurred while saving.');
-      }
-    }
-
-    // Load data on page load
-    fetchPortfolioData();
-  </script>
-</body>
-</html>
