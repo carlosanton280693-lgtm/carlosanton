@@ -11,7 +11,6 @@
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
       --accent: #3b82f6;
-      --accent-hover: #2563eb;
       --border: #334155;
     }
     body {
@@ -27,16 +26,17 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1rem 1.5rem;
+      padding: 1rem 2rem;
       border-bottom: 1px solid var(--border);
       background: var(--card-bg);
     }
     h1 { margin: 0; font-size: 1.25rem; }
     main {
       max-width: 800px;
-      margin: 1.5rem auto;
-      padding: 0 1rem;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
       box-sizing: border-box;
+      width: 100%;
     }
     .profile-card {
       background: var(--card-bg);
@@ -72,19 +72,12 @@
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 1.5rem;
+      padding: 2rem;
       margin-bottom: 1.5rem;
       box-sizing: border-box;
       word-wrap: break-word;
     }
     .card h2 { margin-top: 0; color: var(--accent); font-size: 1.2rem; }
-    
-    @media (max-width: 600px) {
-      header { padding: 1rem; }
-      main { margin: 1.5rem 0.5rem; padding: 0; }
-      .profile-card { flex-direction: column; text-align: center; padding: 1.5rem; gap: 1rem; }
-      .card { padding: 1rem; }
-    }
   </style>
 </head>
 <body>
