@@ -38,6 +38,36 @@
       padding: 0 1rem;
       box-sizing: border-box;
     }
+    .profile-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      box-sizing: border-box;
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+    .profile-img-container {
+      flex-shrink: 0;
+    }
+    .profile-img {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--accent);
+    }
+    .profile-info h2 {
+      margin-top: 0;
+      color: var(--text-main);
+      font-size: 1.5rem;
+    }
+    .profile-info p {
+      margin: 0.3rem 0;
+      color: var(--text-muted);
+    }
     .card {
       background: var(--card-bg);
       border: 1px solid var(--border);
@@ -52,7 +82,8 @@
     /* Mobile Enhancements */
     @media (max-width: 600px) {
       header { padding: 1rem; }
-      main { margin: 1rem auto; padding: 0 0.5rem; }
+      main { margin: 1.5rem 0.5rem; padding: 0; }
+      .profile-card { flex-direction: column; text-align: center; padding: 1.5rem; gap: 1rem; }
       .card { padding: 1rem; }
     }
   </style>
@@ -64,11 +95,28 @@
   </header>
 
   <main>
+    <!-- Profile Header Section -->
+    <div class="profile-card">
+      <div class="profile-img-container">
+        <img id="view-pic" src="" alt="Profile Picture" class="profile-img" onerror="this.style.display='none'">
+      </div>
+      <div class="profile-info">
+        <h2>Carlos Antón</h2>
+        <p>Human Resources Supervisor & Talent Development Professional</p>
+        <p style="font-size: 0.9rem; color: #94a3b8;">Panama City, Panama</p>
+      </div>
+    </div>
+
+    <!-- Capabilities & Tools Sections -->
     <div id="public-view">
       <div class="card">
-        <h2 id="view-title">HR Operations & Talent Development</h2>
-        <p><strong>Capabilities:</strong> <span id="view-capabilities">Loading from Gist...</span></p>
-        <p><strong>Tools & Proficiencies:</strong> <span id="view-tools">Loading from Gist...</span></p>
+        <h2>Core Capabilities</h2>
+        <p><span id="view-capabilities">Loading capabilities...</span></p>
+      </div>
+      
+      <div class="card">
+        <h2>Tools & Proficiencies</h2>
+        <p><span id="view-tools">Loading tools...</span></p>
       </div>
     </div>
   </main>
@@ -84,9 +132,14 @@
 
         document.getElementById('view-capabilities').innerText = data.capabilities || '';
         document.getElementById('view-tools').innerText = data.tools || '';
+        
+        if (data.profilePic) {
+          document.getElementById('view-pic').src = data.profilePic;
+        }
       } catch (error) {
         console.error('Error fetching Gist data:', error);
-        document.getElementById('view-capabilities').innerText = 'Failed to load data.';
+        document.getElementById('view-capabilities').innerText = 'Failed to load capabilities.';
+        document.getElementById('view-tools').innerText = 'Failed to load tools.';
       }
     }
 
