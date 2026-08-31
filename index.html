@@ -40,6 +40,7 @@
   ::selection{ background: var(--accent); color: var(--accent-text); }
   a{ color: inherit; text-decoration: none; }
   .wrap{ max-width: 980px; margin: 0 auto; padding: 0 28px; position: relative; z-index: 1; }
+  :focus-visible{ outline: 2px solid var(--accent); outline-offset: 3px; }
 
   /* ---------- SPLASH / LANGUAGE SELECTOR OVERLAY ---------- */
   #splash-screen {
@@ -99,12 +100,12 @@
     box-shadow: 0 0 16px rgba(59,130,246,.5);
   }
   .brand .txt{ font-family: var(--display); font-weight: 600; font-size: 15px; color: var(--text); }
-  
-  nav.links{ 
-    display:flex; gap: 4px; background: rgba(17, 23, 35, 0.6); 
-    padding: 4px; border-radius: 999px; border: 1px solid var(--line-soft); 
+
+  nav.links{
+    display:flex; gap: 4px; background: rgba(17, 23, 35, 0.6);
+    padding: 4px; border-radius: 999px; border: 1px solid var(--line-soft);
   }
-  
+
   nav.links a{
     position: relative;
     font-family: var(--sans); font-weight: 500; font-size: 13px;
@@ -134,15 +135,35 @@
     transition: transform .15s ease, box-shadow .15s ease; white-space: nowrap; cursor: pointer;
   }
   .cta-nav:hover{ transform: translateY(-1px); box-shadow: 0 6px 18px -6px rgba(59,130,246,.6); }
-  
-  .admin-btn {
-    font-family: var(--mono); font-size: 12px; background: var(--panel-2);
-    border: 1px solid var(--line); color: var(--muted); padding: 6px 12px;
-    border-radius: 999px; cursor: pointer; transition: all 0.2s ease;
-  }
-  .admin-btn:hover { border-color: var(--accent); color: var(--text); }
 
-  @media (max-width: 820px){ nav.links{ display:none; } }
+  /* MOBILE MENU BUTTON (hidden on desktop) */
+  .menu-btn{
+    display: none; width: 36px; height: 36px; border-radius: 10px;
+    background: var(--panel-2); border: 1px solid var(--line); color: var(--text);
+    align-items: center; justify-content: center; cursor: pointer; flex: 0 0 auto;
+  }
+  .menu-btn svg{ width: 18px; height: 18px; }
+
+  @media (max-width: 820px){
+    nav.links{ display:none; }
+    .menu-btn{ display: inline-flex; }
+  }
+
+  /* MOBILE DROPDOWN PANEL */
+  #mobile-menu{
+    display: none;
+    max-width: 980px; margin: 0 auto; padding: 0 28px 14px;
+    flex-direction: column; gap: 4px;
+  }
+  #mobile-menu.open{ display: flex; }
+  #mobile-menu a{
+    font-family: var(--sans); font-weight: 500; font-size: 14px; color: var(--muted);
+    padding: 12px 14px; border-radius: 10px; background: var(--panel);
+    border: 1px solid var(--line-soft); cursor: pointer;
+  }
+  #mobile-menu a.active{ color: var(--text); border-color: var(--accent); }
+
+  @media (min-width: 821px){ #mobile-menu{ display: none !important; } }
 
   /* ---------- SPA TAB PANES ---------- */
   main{ flex: 1; padding-top: 70px; }
@@ -274,7 +295,7 @@
     font-size: 13.5px; font-weight: 500; color: var(--text);
     background: var(--panel); border: 1px solid var(--line); border-radius: 999px; padding: 10px 18px;
   }
-  .cap-pill .sq{ width:6px; height:6px; border-radius: 2px; background: var(--accent); }
+  .cap-pill .sq{ width:6px; height:6px; border-radius: 2px; background: var(--accent); flex: 0 0 auto; }
 
   .tool-group{ margin-bottom: 20px; }
   .tool-group .label{
@@ -293,9 +314,9 @@
   .edu-item:last-child{ margin-bottom: 0; }
   .edu-item .deg{ font-weight: 600; font-size: 14.5px; color: var(--text); }
   .edu-item .inst{ font-size: 13px; color: var(--muted); }
-  .lang-row{ display:flex; justify-content: space-between; align-items:center; margin-bottom: 13px; font-size: 13.5px; }
+  .lang-row{ display:flex; justify-content: space-between; align-items:center; margin-bottom: 13px; font-size: 13.5px; gap: 12px; }
   .lang-row:last-child{ margin-bottom:0; }
-  .lang-bar{ width: 96px; height: 6px; background: var(--line); border-radius: 3px; overflow:hidden; }
+  .lang-bar{ width: 96px; height: 6px; background: var(--line); border-radius: 3px; overflow:hidden; flex: 0 0 auto; }
   .lang-bar i{ display:block; height:100%; background: var(--accent); }
 
   /* ---------- CONTACT ---------- */
@@ -315,8 +336,10 @@
     width: 24px; height: 24px; border-radius: 50%; background: var(--accent); color: var(--accent-text);
     display:flex; align-items:center; justify-content:center; font-size: 12px; box-shadow: 0 0 0 5px var(--bg), 0 0 14px rgba(59,130,246,.6);
   }
-  .progress-labels{ display:flex; justify-content: space-between; font-family: var(--mono); font-size: 10.5px; letter-spacing:.03em; color: var(--muted-2); text-transform: uppercase; }
+  .progress-labels{ display:flex; justify-content: space-between; font-family: var(--mono); font-size: 10.5px; letter-spacing:.03em; color: var(--muted-2); text-transform: uppercase; gap: 6px; }
+  .progress-labels span{ flex: 1; }
   .progress-labels .on{ color: var(--accent); font-weight: 600; }
+  @media (max-width: 520px){ .progress-labels{ font-size: 9px; } }
 
   .contact-cards{ display:grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
   @media (max-width: 820px){ .contact-cards{ grid-template-columns: repeat(2, 1fr); } }
@@ -327,31 +350,17 @@
   .c-card .lbl{ font-family: var(--mono); font-size: 10.5px; letter-spacing:.05em; text-transform: uppercase; color: var(--muted-2); }
   .c-card .val{ font-size: 13.5px; font-weight: 600; color: var(--text); word-break: break-word; }
 
-  /* ---------- MODAL (ADMIN / UPDATE) ---------- */
-  .modal-overlay {
-    position: fixed; inset:0; z-index: 1000; background: rgba(8,11,17,0.85);
-    backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center;
-    opacity: 0; visibility: hidden; transition: all 0.3s ease; padding: 20px;
-  }
-  .modal-overlay.active { opacity: 1; visibility: visible; }
-  .modal-card {
-    background: var(--panel); border: 1px solid var(--line); border-radius: 20px;
-    padding: 30px; max-width: 480px; width: 100%; box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-  }
-  .modal-card h3 { font-family: var(--display); margin: 0 0 6px; font-size: 20px; }
-  .modal-card p { font-size: 13px; color: var(--muted); margin: 0 0 20px; }
-  .form-group { margin-bottom: 16px; text-align: left; }
-  .form-group label { display: block; font-family: var(--mono); font-size: 11px; color: var(--muted); margin-bottom: 6px; text-transform: uppercase; }
-  .form-control {
-    width: 100%; background: var(--panel-2); border: 1px solid var(--line);
-    color: var(--text); border-radius: 8px; padding: 10px 12px; font-family: var(--sans); font-size: 14px;
-  }
-  .form-control:focus { border-color: var(--accent); outline: none; }
-  .modal-btns { display: flex; gap: 10px; justify-content: flex-end; margin-top: 24px; }
-
   footer{ padding: 40px 0; text-align:center; margin-top: auto; border-top: 1px solid var(--line-soft); }
-  footer .foot-note{ font-family: var(--mono); font-size: 11px; color: var(--muted-2); }
+  footer .foot-note{ font-family: var(--mono); font-size: 11px; color: var(--muted-2); padding: 0 20px; }
   footer a { color: var(--accent); text-decoration: underline; }
+
+  @media (max-width: 520px){
+    .sec{ padding: 40px 0 60px; }
+    .hero{ padding: 70px 0 50px; }
+    .t-card{ padding: 18px 18px; }
+    .phil-panel{ padding: 26px 22px; }
+    .onb-panel{ padding: 24px 22px; }
+  }
 
   @media (prefers-reduced-motion: reduce){
     .tab-pane{ transition:none; }
@@ -392,14 +401,23 @@
       <a data-tab="education" class="tab-link" data-en="Background" data-es="Formación">Background</a>
     </nav>
     <div class="nav-right">
-      <button class="admin-btn" onclick="openLoginModal()" title="Admin Settings">⚙ Edit</button>
       <div class="lang-toggle">
         <button id="btn-en" onclick="setLanguage('en')" class="active">EN</button>
         <button id="btn-es" onclick="setLanguage('es')">ES</button>
       </div>
       <a data-tab="contact" class="cta-nav tab-link" data-en="Let's Talk" data-es="Hablemos">Let's Talk</a>
+      <button class="menu-btn" id="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
     </div>
   </div>
+  <nav id="mobile-menu">
+    <a data-tab="inicio" class="tab-link active" data-en="Home" data-es="Inicio">Home</a>
+    <a data-tab="about" class="tab-link" data-en="About Me" data-es="Sobre mí">About Me</a>
+    <a data-tab="experience" class="tab-link" data-en="Experience" data-es="Experiencia">Experience</a>
+    <a data-tab="skills" class="tab-link" data-en="Skills" data-es="Habilidades">Skills</a>
+    <a data-tab="education" class="tab-link" data-en="Background" data-es="Formación">Background</a>
+  </nav>
 </header>
 
 <main>
@@ -431,7 +449,7 @@
 
         <div class="about-profile-center">
           <div class="profile-frame">
-            <img id="profile-img-display" src="WhatsApp Image 2026-07-08 at 10.24.05 AM.jpeg" alt="Carlos Alfredo Antón Gutiérrez">
+            <img id="profile-img-display" src="profile.jpg" alt="Carlos Alfredo Antón Gutiérrez">
           </div>
           <div class="who">
             <h3>Carlos Alfredo Antón Gutiérrez</h3>
@@ -565,55 +583,9 @@
         <h2 data-en="Skills &amp; Toolkit" data-es="Habilidades y Herramientas">Skills &amp; Toolkit</h2>
         <p class="lede" data-en="What I bring to every HR &amp; operations engagement." data-es="Mi propuesta de valor en operaciones de RRHH y atención al cliente.">What I bring to every HR &amp; operations engagement.</p>
 
-        <div class="capacidades" id="dynamic-cap-pills">
-          <span class="cap-pill"><span class="sq"></span><span data-en="U.S. &amp; Multi-Country HR Operations" data-es="Operaciones de RRHH (EE.UU. y Multipaís)">U.S. &amp; Multi-Country HR Operations</span></span>
-          <span class="cap-pill"><span class="sq"></span><span data-en="Employee Lifecycle Management" data-es="Gestión del Ciclo de Vida del Empleado">Employee Lifecycle Management</span></span>
-          <span class="cap-pill"><span class="sq"></span><span data-en="Compliance &amp; Audit Readiness" data-es="Cumplimiento Normativo y Auditorías">Compliance &amp; Audit Readiness</span></span>
-          <span class="cap-pill"><span class="sq"></span><span data-en="HR Analytics &amp; Reporting" data-es="Analítica de Datos e Informes">HR Analytics &amp; Reporting</span></span>
-          <span class="cap-pill"><span class="sq"></span><span data-en="Process Improvement &amp; Automation" data-es="Optimización de Procesos y Automatización">Process Improvement &amp; Automation</span></span>
-          <span class="cap-pill"><span class="sq"></span><span data-en="Learning &amp; Employee Development" data-es="Capacitación y Desarrollo de Personal">Learning &amp; Employee Development</span></span>
-          <span class="cap-pill"><span class="sq"></span><span data-en="Customer Experience &amp; Partner Alignment" data-es="Atención al Cliente y Gestión de Stakeholders">Customer Experience &amp; Partner Alignment</span></span>
-        </div>
+        <div class="capacidades" id="dynamic-cap-pills"><!-- filled by CAPABILITIES in the script below --></div>
 
-        <div id="dynamic-tool-groups">
-          <div class="tool-group">
-            <div class="label" data-en="HRIS, ATS &amp; CRM Systems" data-es="Sistemas HRIS, ATS y CRM">HRIS, ATS &amp; CRM Systems</div>
-            <div class="tool-row">
-              <span class="tool-chip">Oracle HR Connect</span>
-              <span class="tool-chip">Talent Hub ATS</span>
-              <span class="tool-chip">Salesforce</span>
-              <span class="tool-chip">SharePoint</span>
-              <span class="tool-chip">ADP Payroll Workflows</span>
-            </div>
-          </div>
-          <div class="tool-group">
-            <div class="label" data-en="Analytics, Reporting &amp; Productivity" data-es="Analítica, Informes y Productividad">Analytics, Reporting &amp; Productivity</div>
-            <div class="tool-row">
-              <span class="tool-chip">Power BI</span>
-              <span class="tool-chip">Tableau</span>
-              <span class="tool-chip">Excel (Pivot Tables &amp; VLOOKUP)</span>
-              <span class="tool-chip">PowerPoint</span>
-            </div>
-          </div>
-          <div class="tool-group">
-            <div class="label" data-en="Compliance, Process &amp; AI Automation" data-es="Cumplimiento, Procesos y Automatización con IA">Compliance, Process &amp; AI Automation</div>
-            <div class="tool-row">
-              <span class="tool-chip">Form I-9 Compliance</span>
-              <span class="tool-chip">SOX Controls</span>
-              <span class="tool-chip">Power Automate</span>
-              <span class="tool-chip">Process Mapping</span>
-              <span class="tool-chip">AI Tools (ChatGPT / Claude / Gemini)</span>
-            </div>
-          </div>
-          <div class="tool-group">
-            <div class="label" data-en="Soft Skills &amp; Leadership" data-es="Habilidades Blandas y Liderazgo">Soft Skills &amp; Leadership</div>
-            <div class="tool-row">
-              <span class="tool-chip">Team Leadership &amp; Coaching</span>
-              <span class="tool-chip">Cross-Functional Collaboration</span>
-              <span class="tool-chip">Conflict Resolution</span>
-            </div>
-          </div>
-        </div>
+        <div id="dynamic-tool-groups"><!-- filled by TOOL_GROUPS in the script below --></div>
       </div>
     </section>
   </div>
@@ -699,54 +671,6 @@
 
 </main>
 
-<div class="modal-overlay" id="login-modal">
-  <div class="modal-card">
-    <h3>Admin Access</h3>
-    <p>Please enter credentials to edit content.</p>
-    <div class="form-group">
-      <label>Username</label>
-      <input type="text" id="admin-user" class="form-control" placeholder="Username">
-    </div>
-    <div class="form-group">
-      <label>Password</label>
-      <input type="password" id="admin-pass" class="form-control" placeholder="Password">
-    </div>
-    <div style="color: #EF4444; font-size: 12px; display: none; margin-bottom: 10px;" id="login-error">Invalid Username or Password</div>
-    <div class="modal-btns">
-      <button class="btn ghost" onclick="closeModal('login-modal')">Cancel</button>
-      <button class="btn primary" onclick="handleLogin()">Login</button>
-    </div>
-  </div>
-</div>
-
-<div class="modal-overlay" id="update-modal">
-  <div class="modal-card">
-    <h3>Update Profile &amp; Skills</h3>
-    <p>Make edits below and save directly to page view.</p>
-    
-    <div class="form-group">
-      <label>Profile Picture URL / Upload</label>
-      <input type="file" id="pic-file-input" class="form-control" accept="image/*" style="margin-bottom: 8px;">
-      <input type="text" id="pic-url-input" class="form-control" placeholder="Or paste image URL...">
-    </div>
-
-    <div class="form-group">
-      <label>Core Capability Pills (Comma Separated)</label>
-      <input type="text" id="cap-input" class="form-control" placeholder="e.g. HR Operations, Compliance, Analytics">
-    </div>
-
-    <div class="form-group">
-      <label>Tool Chips (Comma Separated)</label>
-      <input type="text" id="tools-input" class="form-control" placeholder="e.g. Oracle, Power BI, Excel, Salesforce">
-    </div>
-
-    <div class="modal-btns">
-      <button class="btn ghost" onclick="closeModal('update-modal')">Cancel</button>
-      <button class="btn primary" onclick="saveAdminUpdates()">Save Changes</button>
-    </div>
-  </div>
-</div>
-
 <footer>
   <div class="foot-note">
     <span data-en="Panama City, Panama — built as a static page, ready for deployment." data-es="Ciudad de Panamá, Panamá — sitio estático listo para despliegue.">Panama City, Panama — built as a static page, ready for deployment.</span>
@@ -755,7 +679,81 @@
 </footer>
 
 <script>
+  /* =====================================================================
+     EDIT HERE TO UPDATE THE SITE
+     No login, no admin panel — this is a static page, so "publishing an
+     update" just means changing the values below, saving the file, and
+     re-uploading it (or pushing to GitHub if it's connected to Cloudflare
+     Pages — every push auto-deploys).
+     ===================================================================== */
+
+  // 1) PHOTO
+  // Put your photo file in the same folder as this index.html and name it
+  // "profile.jpg" (or change the filename below to match). You can also
+  // paste a direct image URL instead of a filename.
+  const PROFILE_IMAGE = "profile.jpg";
+
+  // 2) SKILLS / CAPABILITY PILLS (the row of rounded tags)
+  // Add, remove, or edit entries. "es" is optional — if you skip it,
+  // the English text is shown in both languages.
+  const CAPABILITIES = [
+    { en: "U.S. &amp; Multi-Country HR Operations", es: "Operaciones de RRHH (EE.UU. y Multipaís)" },
+    { en: "Employee Lifecycle Management", es: "Gestión del Ciclo de Vida del Empleado" },
+    { en: "Compliance &amp; Audit Readiness", es: "Cumplimiento Normativo y Auditorías" },
+    { en: "HR Analytics &amp; Reporting", es: "Analítica de Datos e Informes" },
+    { en: "Process Improvement &amp; Automation", es: "Optimización de Procesos y Automatización" },
+    { en: "Learning &amp; Employee Development", es: "Capacitación y Desarrollo de Personal" },
+    { en: "Customer Experience &amp; Partner Alignment", es: "Atención al Cliente y Gestión de Stakeholders" }
+  ];
+
+  // 3) TOOLKIT (grouped chips further down the Skills page)
+  // Add a new group by copying one of the { label, tools } blocks below.
+  const TOOL_GROUPS = [
+    {
+      label: { en: "HRIS, ATS &amp; CRM Systems", es: "Sistemas HRIS, ATS y CRM" },
+      tools: ["Oracle HR Connect", "Talent Hub ATS", "Salesforce", "SharePoint", "ADP Payroll Workflows"]
+    },
+    {
+      label: { en: "Analytics, Reporting &amp; Productivity", es: "Analítica, Informes y Productividad" },
+      tools: ["Power BI", "Tableau", "Excel (Pivot Tables &amp; VLOOKUP)", "PowerPoint"]
+    },
+    {
+      label: { en: "Compliance, Process &amp; AI Automation", es: "Cumplimiento, Procesos y Automatización con IA" },
+      tools: ["Form I-9 Compliance", "SOX Controls", "Power Automate", "Process Mapping", "AI Tools (ChatGPT / Claude / Gemini)"]
+    },
+    {
+      label: { en: "Soft Skills &amp; Leadership", es: "Habilidades Blandas y Liderazgo" },
+      tools: ["Team Leadership &amp; Coaching", "Cross-Functional Collaboration", "Conflict Resolution"]
+    }
+  ];
+
+  /* ===================== end of editable section ===================== */
+
   let currentLang = 'en';
+
+  function renderCapabilities() {
+    const container = document.getElementById('dynamic-cap-pills');
+    container.innerHTML = CAPABILITIES.map(cap => `
+      <span class="cap-pill"><span class="sq"></span><span data-en="${cap.en}" data-es="${cap.es || cap.en}">${cap.en}</span></span>
+    `).join('');
+  }
+
+  function renderTools() {
+    const container = document.getElementById('dynamic-tool-groups');
+    container.innerHTML = TOOL_GROUPS.map(group => `
+      <div class="tool-group">
+        <div class="label" data-en="${group.label.en}" data-es="${group.label.es || group.label.en}">${group.label.en}</div>
+        <div class="tool-row">
+          ${group.tools.map(tool => `<span class="tool-chip">${tool}</span>`).join('')}
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function applyProfileImage() {
+    const img = document.getElementById('profile-img-display');
+    if (PROFILE_IMAGE) img.src = PROFILE_IMAGE;
+  }
 
   function selectLanguage(lang) {
     document.getElementById('splash-screen').classList.add('hidden');
@@ -778,140 +776,47 @@
     document.documentElement.lang = lang;
   }
 
-  const tabLinks = document.querySelectorAll('.tab-link');
-  const tabPanes = document.querySelectorAll('.tab-pane');
-  const allNavItems = document.querySelectorAll('.topbar-inner a');
-
   function switchTab(targetId) {
     window.scrollTo(0, 0);
 
-    tabPanes.forEach(pane => {
-      if (pane.id === targetId) {
-        pane.classList.add('active');
-      } else {
-        pane.classList.remove('active');
-      }
+    document.querySelectorAll('.tab-pane').forEach(pane => {
+      pane.classList.toggle('active', pane.id === targetId);
     });
 
-    allNavItems.forEach(link => {
-      if (link.dataset.tab === targetId) {
-        link.classList.add('active');
-      } else {
-        link.classList.remove('active');
-      }
+    document.querySelectorAll('.topbar-inner a, #mobile-menu a').forEach(link => {
+      link.classList.toggle('active', link.dataset.tab === targetId);
     });
+
+    closeMobileMenu();
   }
 
-  tabLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      const targetTab = link.dataset.tab;
-      if (targetTab) switchTab(targetTab);
-    });
-  });
-
-  /* ---------- ADMIN / AUTH & LOCALSTORAGE FUNCTIONS ---------- */
-  function openLoginModal() {
-    document.getElementById('admin-user').value = '';
-    document.getElementById('admin-pass').value = '';
-    document.getElementById('login-error').style.display = 'none';
-    document.getElementById('login-modal').classList.add('active');
+  function openMobileMenu() {
+    document.getElementById('mobile-menu').classList.add('open');
+    document.getElementById('menu-toggle').setAttribute('aria-expanded', 'true');
+  }
+  function closeMobileMenu() {
+    document.getElementById('mobile-menu').classList.remove('open');
+    document.getElementById('menu-toggle').setAttribute('aria-expanded', 'false');
+  }
+  function toggleMobileMenu() {
+    const isOpen = document.getElementById('mobile-menu').classList.contains('open');
+    if (isOpen) closeMobileMenu(); else openMobileMenu();
   }
 
-  function closeModal(modalId) {
-    document.getElementById(modalId).classList.remove('active');
-  }
-
-  function handleLogin() {
-    const user = document.getElementById('admin-user').value.trim();
-    const pass = document.getElementById('admin-pass').value.trim();
-
-    if (user === 'cantong22' && pass === 'Mrbo0gie') {
-      closeModal('login-modal');
-      populateUpdateForm();
-      document.getElementById('update-modal').classList.add('active');
-    } else {
-      document.getElementById('login-error').style.display = 'block';
-    }
-  }
-
-  function populateUpdateForm() {
-    const currentImg = document.getElementById('profile-img-display').src;
-    document.getElementById('pic-url-input').value = currentImg.startsWith('data:') ? '' : currentImg;
-
-    // Load capability pills
-    const pills = Array.from(document.querySelectorAll('#dynamic-cap-pills .cap-pill span:last-child')).map(el => el.innerText);
-    document.getElementById('cap-input').value = pills.join(', ');
-
-    // Load tools
-    const tools = Array.from(document.querySelectorAll('#dynamic-tool-groups .tool-chip')).map(el => el.innerText);
-    document.getElementById('tools-input').value = tools.join(', ');
-  }
-
-  function renderCapabilities(capString) {
-    const capArray = capString.split(',').map(s => s.trim()).filter(Boolean);
-    const capContainer = document.getElementById('dynamic-cap-pills');
-    capContainer.innerHTML = capArray.map(cap => `
-      <span class="cap-pill"><span class="sq"></span><span>${cap}</span></span>
-    `).join('');
-  }
-
-  function renderTools(toolsString) {
-    const toolsArray = toolsString.split(',').map(s => s.trim()).filter(Boolean);
-    const toolContainer = document.getElementById('dynamic-tool-groups');
-    toolContainer.innerHTML = `
-      <div class="tool-group">
-        <div class="label">Updated Skills &amp; Tools</div>
-        <div class="tool-row">
-          ${toolsArray.map(tool => `<span class="tool-chip">${tool}</span>`).join('')}
-        </div>
-      </div>
-    `;
-  }
-
-  function saveAdminUpdates() {
-    // 1. Picture update
-    const fileInput = document.getElementById('pic-file-input');
-    const urlInput = document.getElementById('pic-url-input').value.trim();
-    
-    if (fileInput.files && fileInput.files[0]) {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        document.getElementById('profile-img-display').src = e.target.result;
-        localStorage.setItem('custom_profile_pic', e.target.result);
-      };
-      reader.readAsDataURL(fileInput.files[0]);
-    } else if (urlInput !== '') {
-      document.getElementById('profile-img-display').src = urlInput;
-      localStorage.setItem('custom_profile_pic', urlInput);
-    }
-
-    // 2. Capabilities update
-    const capVal = document.getElementById('cap-input').value.trim();
-    if (capVal) {
-      localStorage.setItem('custom_capabilities', capVal);
-      renderCapabilities(capVal);
-    }
-
-    // 3. Tools update
-    const toolsVal = document.getElementById('tools-input').value.trim();
-    if (toolsVal) {
-      localStorage.setItem('custom_tools', toolsVal);
-      renderTools(toolsVal);
-    }
-
-    closeModal('update-modal');
-  }
-
-  // Load saved modifications automatically when opening the page
   document.addEventListener('DOMContentLoaded', () => {
-    const savedPic = localStorage.getItem('custom_profile_pic');
-    const savedCaps = localStorage.getItem('custom_capabilities');
-    const savedTools = localStorage.getItem('custom_tools');
+    renderCapabilities();
+    renderTools();
+    applyProfileImage();
 
-    if (savedPic) document.getElementById('profile-img-display').src = savedPic;
-    if (savedCaps) renderCapabilities(savedCaps);
-    if (savedTools) renderTools(savedTools);
+    document.querySelectorAll('.tab-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetTab = link.dataset.tab;
+        if (targetTab) switchTab(targetTab);
+      });
+    });
+
+    document.getElementById('menu-toggle').addEventListener('click', toggleMobileMenu);
   });
 
   /* ---------- BACKGROUND PARTICLES ---------- */
